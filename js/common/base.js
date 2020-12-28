@@ -4,7 +4,7 @@
         this.setDataUrl();
         this.loadData();
     }
-
+    //set url
     setDataUrl() {
 
     }
