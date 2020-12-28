@@ -1,0 +1,47 @@
+﻿.button-default {
+    display: flex;
+    align-items: center;
+    background-color: #019160;
+    border-radius: 4px;
+    height: 40px;
+    font-size: 13px;
+    color: #FFFFFF;
+    font-family: GoogleSans-Regular;
+    padding-left: 16px;
+    padding-right: 16px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+    .button-default:hover {
+        background-color: #2FBE8E;
+    }
+
+    .button-default .icon-add {
+        background-position: center;
+    }
+
+    .button-default .button-text {
+        margin-left: 8px;
+    }
+.button-refresh {
+    background-image: url('/content/icon/refresh.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 40px;
+}
+.second-button{
+    background-color: #FFFFFF;
+    border: 1px solid #BBBBBB;
+    border-radius: 4px;
+    width: 40px;
+    color: #000000;
+    padding-left: 24px;
+    padding-right: 24px;
+    text-align: center;
+    cursor: pointer;
+}
+.second-button:hover{
+    background-color: #E9EBEE;
+}
