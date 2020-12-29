@@ -3,12 +3,6 @@
     font-family: GoogleSans-Regular;
     font-size: 13px;
 }
-.text-align-center{
-    text-align: center;
-}
-.text-align-right{
-    text-align: right;
-}
 @font-face {
     font-family: 'GoogleSans-Regular';
     src: url('/content/font/GoogleSans-Regular.otf') format('opentype');

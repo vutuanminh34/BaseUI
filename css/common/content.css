@@ -1,6 +1,6 @@
-﻿.content {
+.content {
     position: absolute;
-    top: 79px;
+    top: 49px;
     left: 221px;
     width: calc(100% - 221px);
     height: calc(100vh - 79px);
@@ -70,7 +70,7 @@
             }
 
                 .content .paging-bar .bar-center .list-number .number:hover {
-                    background-color: #019160;
+                    background-color: #FFFFFF;
                 }
 
                 .content .paging-bar .bar-center .list-number .number:nth-child(1) {
@@ -78,10 +78,14 @@
                 }
 
         .content .paging-bar .bar-center .arrow .base-arrow {
+            opacity: 0.7;
             height: 24px;
             width: 24px;
-            border: 0;
             background-color: #FFFFFF;
+            background-position: center;
+            border-radius: 3px;
+            cursor: pointer;
+            border: 1px solid #FFFFFF;
         }
 
 .arrow-first {
