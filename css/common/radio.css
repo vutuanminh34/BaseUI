@@ -13,12 +13,12 @@ input[type='radio']:after {
     height: 20px;
     border-radius: 20px;
     position: relative;
-    /*background-color: white;*/
+    /*background-color: #019160;*/
     background-size: contain;
     content: '';
     display: inline-block;
     visibility: visible;
-    /*border: 1px solid #BBBBBB;*/
+    /*border: 1px solid #019160;*/
 }
 
 input[type='radio']:checked:after {
@@ -32,7 +32,7 @@ input[type='radio']:checked:after {
 }
 
 input[type="radio"] {
-    -ms-transform: scale(1.5); /* IE 9 */
-    -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+    -ms-transform: scale(1.5);
+    -webkit-transform: scale(1.5);
     transform: scale(1.5);
 }
