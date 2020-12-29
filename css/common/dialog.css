@@ -111,7 +111,6 @@
         }
 
     .dialog-detail .dialog-content .dialog-body .foot-body {
-        display: flex;
         padding: 2px 24px 12px 24px;
         width: calc(100% - 48px);
         height: 230px;
@@ -119,3 +118,15 @@
         position: absolute;
         top: 290px;
     }
+        .dialog-detail .dialog-content .dialog-body .foot-body .foot-right {
+            margin-left: 10px;
+            float: left;
+        }
+        
+        .dialog-detail .dialog-content .dialog-body .foot-body .foot-left {
+            float: left;
+        }
+
+        .dialog-detail .dialog-content .dialog-body .foot-body .foot-left input {
+            width: 400px;
+        }
