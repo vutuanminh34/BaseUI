@@ -1,13 +1,14 @@
 ﻿$(document).ready(function () {
     new CustomerJS();
     // show and hide modal
-    $('.button-default').click(function () {
+    /*$('.button-default').click(function () {
         $('.dialog-detail').addClass('show-dialog');
         $('.dialog-detail').removeClass('hide-dialog');
-    });$('#button-x').click(function () {
+    });
+    $('#button-x').click(function () {
         $('.dialog-detail').removeClass('show-dialog');
         $('.dialog-detail').addClass('hide-dialog');
-    });
+    });*/
     /*$(".dialog-detail").hide();
     $("#button-add").click(function () {
         $(".dialog-detail").show();

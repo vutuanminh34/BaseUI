@@ -69,7 +69,7 @@
         <div class="header-content">
             <div class="title">Danh sách khách hàng</div>
             <div class="content-feature">
-                <button class="button-default">
+                <button id="button-add" class="button-default">
                     <div class="icon-add"></div>
                     <div class="button-text">Thêm khách hàng</div>
                 </button>
@@ -80,7 +80,7 @@
                 <input class="icon-search input-search" type="text" style="width: 200px" placeholder="Tìm kiếm theo Mã, Tên Khác" />
             </div>
             <div class="filter-right">
-                <button class="second-button button-refresh">
+                <button id="button-refresh" class="second-button button-refresh">
                 </button>
             </div>
         </div>
@@ -157,7 +157,7 @@
                     <div class="head-body-center">
                         <div>
                             <div>Mã khách hàng (<span class="red-color">*</span>)</div>
-                            <div class="space"><input id="txtCustomerCode" fieldName="CustomerCode" required type="text" /></div>
+                            <div class="space"><input id="txtCustomerCode" class="input-required" fieldName="CustomerCode" type="text"  required /></div>
                         </div>
                         <div class="down">
                             <div>Mã thẻ thành viên</div>
@@ -171,7 +171,7 @@
                     <div class="head-body-right">
                         <div>
                             <div>Họ và tên (<span class="red-color">*</span>)</div>
-                            <div class="space"><input id="txtFullName" fieldName="FullName" required type="text" /></div>
+                            <div class="space"><input id="txtFullName" class="input-required" fieldName="FullName" type="text" required /></div>
                         </div>
                         <div class="down">
                             <div>Nhóm khách hàng</div>
@@ -182,10 +182,10 @@
                             </select>
                             <div class="space"><combobox id="cbxCustomerGroup" fieldName="" valueName="" api=""></combobox></div>-->
                             <div class="space">
-                                <select style="width: 203px; height: 37px;">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
+                                <select id="cbxCustomerGroup" style="width: 203px; height: 37px;">
+                                    <option>Khách VIP</option>
+                                    <option>Khách thường</option>
+                                    <option>Khách vãng lai</option>
                                 </select>
                             </div>
                         </div>
@@ -216,17 +216,17 @@
                         </div>
                         <div class="margin-top">
                             <div class="m-label">Tên công ty</div>
-                            <div class="m-control"><input type="text" fieldName="CompanyName" /></div>
+                            <div class="m-control"><input id="txtCompanyName" type="text" fieldName="CompanyName" /></div>
                         </div>
                     </div>
                     <div class="foot-right">
                         <div>
                             <div class="m-label">Số điện thoại (<span class="red-color">*</span>)</div>
-                            <div class="m-control"><input id="txtPhoneNumber" fieldName="PhoneNumber" type="tel" required /></div>
+                            <div class="m-control"><input id="txtPhoneNumber" class="input-required" fieldName="PhoneNumber" type="tel" required /></div>
                         </div>
                         <div class="margin-top">
                             <div class="m-label">Mã số thuế</div>
-                            <div class="m-control"><input type="text" fieldName="CompanyTaxCode" placeholder="Mã số thuế của công ty" /></div>
+                            <div class="m-control"><input id="txtCompanyTaxCode" type="text" fieldName="CompanyTaxCode" placeholder="Mã số thuế của công ty" /></div>
                         </div>
                     </div>
                     <div class="foot-bottom">
@@ -238,8 +238,8 @@
                 </div>
             </div>
             <div class="dialog-footer">
-                <button id="btnSave" class="m-btn m-btn-default"><i class="far fa-save"></i><span class="btn-text">Lưu</span></button>
-                <button id="btnCancel" class="m-btn m-btn-default m-btn-cancel">Hủy</button>
+                <button id="button-save" class="m-btn m-btn-default"><i class="far fa-save"></i><span class="btn-text">Lưu</span></button>
+                <button id="button-cancel"  class="m-btn m-btn-default m-btn-cancel">Hủy</button>
             </div>
         </div>
     </div>
