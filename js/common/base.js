@@ -1,21 +1,50 @@
 ﻿class BaseJS {
     constructor() {
-        this.getDataUrl = null;
-        this.setDataUrl();
+        this.host = "http://api.manhnv.net";
+        this.apiRouter = null;
+        this.setApiRouter();
         this.loadData();
         this.initEvents();
     }
-    //set url
-    setDataUrl() {
+
+    //set api router
+    setApiRouter() {
 
     }
 
     initEvents() {
         var me = this;
         //Event click on button add new
+
         $('.button-default').click(function () {
-            $('.dialog-detail').addClass('show-dialog');
-            $('.dialog-detail').removeClass('hide-dialog');
+            try {
+                //show dialog
+                $('.dialog-detail').addClass('show-dialog');
+                $('.dialog-detail').removeClass('hide-dialog');
+                $('input').val(null);
+                //load data for combobox
+                var select = $('select#cbxCustomerGroup');
+                select.empty();
+                //get value of group customers
+                $('.loading').show();
+                $.ajax({
+                    url: me.host + "/api/customergroups",
+                    method: "GET"
+                }).done(function (res) {
+                    if (res) {
+                        $.each(res, function (index, object) {
+                            var option = $(`<option value="${object.CustomerGroupId}">${object.CustomerGroupName}</option>`);
+                            select.append(option);
+                        })
+                    }
+                    $('.loading').hide();
+                }).fail(function (res) {
+                    $('.loading').hide();
+                })
+            } catch (e) {
+                console.log(e);
+            }
+
         });
         //Event reload data when click button load
         $('#button-refresh').click(function () {
@@ -47,18 +76,25 @@
             }
             //data collection has been entered -> build to object
             var inputs = $('input[fieldName], select[fieldName]');
-            var customer = {};
+            var entity = {};
             $.each(inputs, function (index, input) {
                 var propertyName = $(this).attr('fieldName');
                 var value = $(this).val();
-                customer[propertyName] = value;
+                //Check value of radio, Give only checked
+                if ($(this).attr('type') == "radio") {
+                    if (this.checked) {
+                        entity[propertyName] = value;
+                    }
+                } else {
+                    entity[propertyName] = value;
+                }
             })
 
             //call service and save data
             $.ajax({
-                url: 'http://api.manhnv.net/api/customers',
+                url: me.host + me.apiRouter,
                 method: 'POST',
-                data: JSON.stringify(customer),
+                data: JSON.stringify(entity),
                 contentType: 'application/json',
             }).done(function (res) {
                 //After save success -> Give a message, hide form dialog, reload data
@@ -68,13 +104,44 @@
                 me.loadData();
 
             }).fail(function (res) {
-                
+
             }.bind(this))
-            
+
         });
         //Show detail infor when double click on object in table(dynamic event definitions)
         $('table tbody').on('dblclick', 'tr', function () {
-            alert(1);
+            //Get primary key from table
+            var recordId = $(this).data('recordId');
+            //Call service to get detail infor by Id
+            $.ajax({
+                url: me.host + me.apiRouter + `/${recordId}`,
+                method: "GET"
+            }).done(function (res) {
+                //binding date to dialog
+                console.log(res);
+
+                //data collection has been entered -> build to object
+                var inputs = $('input[fieldName], select[fieldName]');
+                var entity = {};
+                $.each(inputs, function (index, input) {
+                    var propertyName = $(this).attr('fieldName');
+                    var value = res[propertyName];
+                    $(this).val(value);
+                    //Check value of radio, Give only checked
+                    /*if ($(this).attr('type') == "radio") {
+                        if (this.checked) {
+                            entity[propertyName] = value;
+                        }
+                    } else {
+                        entity[propertyName] = value;
+                    }*/
+                })
+            }).fail(function (res) {
+
+            })
+            //show dialog
+            $('.dialog-detail').addClass('show-dialog');
+            $('.dialog-detail').removeClass('hide-dialog');
         });
 
         /*
@@ -116,20 +183,21 @@
     * createdBy: minhvt (28/12/2020)
     * */
     loadData() {
+        var me = this;
         try {
             $('table tbody').empty();
             //get value for column
             var columns = $('table thead th');
-            var getDataUrl = this.getDataUrl;
-
+            $('.loading').show();
             //get data
             $.ajax({
-                url: getDataUrl,
+                url: me.host + me.apiRouter,
                 method: "GET",
             }).done(function (res) {
                 var data = res;
                 $.each(data, function (index, obj) {
                     var tr = $(`<tr></tr>`);
+                    $(tr).data('recordId', obj.CustomerId);
                     //get value use for mapping with the corresponding columns
                     $.each(columns, function (index, th) {
                         var td = $(`<td></td>`);
@@ -152,9 +220,10 @@
                         $(tr).append(td);
                     })
                     $('table tbody').append(tr);
+                    $('.loading').hide();
                 })
             }).fail(function (res) {
-
+                $('.loading').hide();
             })
         } catch (e) {
             //log error
