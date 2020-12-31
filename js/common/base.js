@@ -46,17 +46,14 @@
                 return;
             }
             //data collection has been entered -> build to object
-            var customer = {
-                "CustomerCode": $('#txtCustomerCode').val(),
-                "FullName": $('#txtFullName').val(),
-                "Address": $('#txtAddress').val(),
-                "DateOfBirth": $('#dtDateOfBirth').val(),
-                "Email": $('#txtEmail').val(),
-                "PhoneNumber": $('#txtPhoneNumber').val(),
-                "CustomerGroupId": "3631011e-4559-4ad8-b0ad-cb989f2177da",
-                "MemberCardCode": $('#txtMemberCardCode').val()
-            }
-            console.log(customer);
+            var inputs = $('input[fieldName], select[fieldName]');
+            var customer = {};
+            $.each(inputs, function (index, input) {
+                var propertyName = $(this).attr('fieldName');
+                var value = $(this).val();
+                customer[propertyName] = value;
+            })
+
             //call service and save data
             $.ajax({
                 url: 'http://api.manhnv.net/api/customers',
