@@ -14,43 +14,16 @@
 
     initEvents() {
         var me = this;
+
         //Event click on button add new
+        $('.button-default').click(me.btnAddOnClick.bind(me));
 
-        $('.button-default').click(function () {
-            try {
-                //show dialog
-                $('.dialog-detail').addClass('show-dialog');
-                $('.dialog-detail').removeClass('hide-dialog');
-                $('input').val(null);
-                //load data for combobox
-                var select = $('select#cbxCustomerGroup');
-                select.empty();
-                //get value of group customers
-                $('.loading').show();
-                $.ajax({
-                    url: me.host + "/api/customergroups",
-                    method: "GET"
-                }).done(function (res) {
-                    if (res) {
-                        $.each(res, function (index, object) {
-                            var option = $(`<option value="${object.CustomerGroupId}">${object.CustomerGroupName}</option>`);
-                            select.append(option);
-                        })
-                    }
-                    $('.loading').hide();
-                }).fail(function (res) {
-                    $('.loading').hide();
-                })
-            } catch (e) {
-                console.log(e);
-            }
-
-        });
         //Event reload data when click button load
         $('#button-refresh').click(function () {
-            alert('Reloading data from server!');
+            alert('Refresh data complete!');
             this.loadData();
         }.bind(this));
+
         //Hide form dialog when click button "Huy" and "X"
         $('#button-cancel').click(function () {
             $('.dialog-detail').removeClass('show-dialog');
@@ -60,58 +33,35 @@
             $('.dialog-detail').removeClass('show-dialog');
             $('.dialog-detail').addClass('hide-dialog');
         });
+
         //Excute save data when click button "Luu"
-        $('#button-save').click(function () {
-            var self = this;
-            //validate data
-            var inputValidates = $('input[required], input[type="email"]');
-            $.each(inputValidates, function (index, input) {
-                $(input).trigger('blur');
-            });
-            var inputNotValids = $('input[validate="false"]');
-            if (inputNotValids && inputNotValids.length > 0) {
-                alert('Dữ liệu không hợp lệ vui lòng kiểm tra lại!');
-                inputNotValids[0].focus();
-                return;
-            }
-            //data collection has been entered -> build to object
-            var inputs = $('input[fieldName], select[fieldName]');
-            var entity = {};
-            $.each(inputs, function (index, input) {
-                var propertyName = $(this).attr('fieldName');
-                var value = $(this).val();
-                //Check value of radio, Give only checked
-                if ($(this).attr('type') == "radio") {
-                    if (this.checked) {
-                        entity[propertyName] = value;
-                    }
-                } else {
-                    entity[propertyName] = value;
-                }
-            })
+        $('#button-save').click(me.btnSaveOnClick.bind(me));
 
-            //call service and save data
-            $.ajax({
-                url: me.host + me.apiRouter,
-                method: 'POST',
-                data: JSON.stringify(entity),
-                contentType: 'application/json',
-            }).done(function (res) {
-                //After save success -> Give a message, hide form dialog, reload data
-                alert('Thêm thành công!');
-                $('.dialog-detail').removeClass('show-dialog');
-                $('.dialog-detail').addClass('hide-dialog');
-                me.loadData();
-
-            }).fail(function (res) {
-
-            }.bind(this))
-
-        });
         //Show detail infor when double click on object in table(dynamic event definitions)
         $('table tbody').on('dblclick', 'tr', function () {
+            //load data for combobox
+            var select = $('select#cbxCustomerGroup');
+            select.empty();
+            //get value of group customers
+            $('.loading').show();
+            $.ajax({
+                url: me.host + "/api/customergroups",
+                method: "GET"
+            }).done(function (res) {
+                if (res) {
+                    $.each(res, function (index, object) {
+                        var option = $(`<option value="${object.CustomerGroupId}">${object.CustomerGroupName}</option>`);
+                        select.append(option);
+                    })
+                }
+                $('.loading').hide();
+            }).fail(function (res) {
+                $('.loading').hide();
+            })
+            me.FormMode = 'Edit';
             //Get primary key from table
             var recordId = $(this).data('recordId');
+            me.recordId = recordId;
             //Call service to get detail infor by Id
             $.ajax({
                 url: me.host + me.apiRouter + `/${recordId}`,
@@ -126,15 +76,26 @@
                 $.each(inputs, function (index, input) {
                     var propertyName = $(this).attr('fieldName');
                     var value = res[propertyName];
-                    $(this).val(value);
-                    //Check value of radio, Give only checked
-                    /*if ($(this).attr('type') == "radio") {
-                        if (this.checked) {
-                            entity[propertyName] = value;
+
+                    //for input date type
+                    if ($(this).attr('type') == 'date') {
+                        var propValueName = $(this).attr('fieldValue');
+                        value = res[propValueName];
+                    }
+
+                    //for input radio type
+                    if ($(this).attr('type') == "radio") {
+                        var inputValue = this.value;
+
+                        if (value == inputValue) {
+                            this.checked = true;
+                        } else {
+                            this.checked = false;
                         }
                     } else {
-                        entity[propertyName] = value;
-                    }*/
+                        $(this).val(value);
+                    }
+
                 })
             }).fail(function (res) {
 
@@ -232,5 +193,104 @@
 
 
 
+    }
+
+    /**
+     * Function excute event when click "Thêm mới khách hàng" button 
+     * createdBy: minhvt (4/1/2021)
+     * */
+    btnAddOnClick() {
+        try {
+            var me = this;
+            me.FormMode = 'Add';
+            //show dialog
+            $('.dialog-detail').addClass('show-dialog');
+            $('.dialog-detail').removeClass('hide-dialog');
+            $('input[type !="radio"]').val(null);
+            $('input[type="radio"]').prop('checked', false);
+            //load data for combobox
+            var select = $('select#cbxCustomerGroup');
+            select.empty();
+            //get value of group customers
+            $('.loading').show();
+            $.ajax({
+                url: me.host + "/api/customergroups",
+                method: "GET"
+            }).done(function (res) {
+                if (res) {
+                    $.each(res, function (index, object) {
+                        var option = $(`<option value="${object.CustomerGroupId}">${object.CustomerGroupName}</option>`);
+                        select.append(option);
+                    })
+                }
+                $('.loading').hide();
+            }).fail(function (res) {
+                $('.loading').hide();
+            })
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    /**
+     * Function excute event when click "Lưu" button
+     * createdBy: minhvt (4/1/2021)
+     * */
+    btnSaveOnClick() {
+        var me = this;
+        //validate data
+        var inputValidates = $('input[required], input[type="email"]');
+        $.each(inputValidates, function (index, input) {
+            $(input).trigger('blur');
+        });
+        var inputNotValids = $('input[validate="false"]');
+        if (inputNotValids && inputNotValids.length > 0) {
+            alert('Dữ liệu không hợp lệ vui lòng kiểm tra lại!');
+            inputNotValids[0].focus();
+            return;
+        }
+        //data collection has been entered -> build to object
+        var inputs = $('input[fieldName], select[fieldName]');
+        var entity = {};
+        $.each(inputs, function (index, input) {
+            var propertyName = $(this).attr('fieldName');
+            var value = $(this).val();
+
+            //Check value of radio, Give only checked
+            if ($(this).attr('type') == "radio") {
+                if (this.checked) {
+                    value = $(this).attr('value');
+                    entity[propertyName] = value;
+                }
+            } else {
+                entity[propertyName] = value;
+            }
+        })
+        var method = "POST";
+        if (me.FormMode == 'Edit') {
+            method = "PUT";
+            entity.CustomerId = me.recordId;
+        }
+        //call service and save data
+        $.ajax({
+            url: me.host + me.apiRouter,
+            method: method,
+            data: JSON.stringify(entity),
+            contentType: 'application/json',
+        }).done(function (res) {
+            //After save success -> Give a message, hide form dialog, reload data
+            console.log(entity);
+            if (me.FormMode == 'Add') {
+                alert('Thêm thành công!');
+            } if (me.FormMode == 'Edit') {
+                alert('Cập nhật thành công!');
+            }
+            $('.dialog-detail').removeClass('show-dialog');
+            $('.dialog-detail').addClass('hide-dialog');
+            me.loadData();
+
+        }).fail(function (res) {
+
+        })
     }
 }

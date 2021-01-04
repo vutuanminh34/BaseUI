@@ -76,3 +76,6 @@
 .nav-icon4 {
     background-image: url('/content/icon/setting.png');
 }
+.row-selected{
+    background-color: #019160;
+}

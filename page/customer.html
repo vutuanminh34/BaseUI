@@ -176,7 +176,7 @@
                         <div class="down">
                             <div>Nhóm khách hàng</div>
                             <div class="space">
-                                <select id="cbxCustomerGroup" fieldName="CustomerGroupId" style="width: 203px; height: 37px; border-radius: 4px; border: 1px solid #BBBBBB; outline: none;">
+                                <select id="cbxCustomerGroup" fieldName="CustomerGroupId" api="/api/customergroups" style="width: 203px; height: 37px; border-radius: 4px; border: 1px solid #BBBBBB; outline: none;">
                                     <!--<option value="19165ed7-212e-21c4-0428-030d4265475f">Khách VIP</option>
                                     <option value="7a0b757e-41eb-4df6-c6f8-494a84b910f4">Khách thường</option>
                                     <option value="3631011e-4559-4ad8-b0ad-cb989f2177da">Khách vãng lai</option>-->
@@ -187,15 +187,15 @@
                             <div>Giới tính</div>
                             <div class="m-radio-group" id="rdGender">
                                 <div class="m-radio-item" style="margin-left: 10px; flex: 1;">
-                                    <input type="radio" id="rdMale" fieldName="Gender" value="1" name="gender" checked />
+                                    <input type="radio" value="1" id="rdMale" fieldName="Gender" name="gender"s />
                                     <label for="rdMale" style="margin-left: 8px">Nam</label>
                                 </div>
                                 <div class="m-radio-item" style="margin-left: 10px; flex: 1;">
-                                    <input type="radio" id="rdFemale" fieldName="Gender" value="0" name="gender" />
+                                    <input type="radio" value="0" id="rdFemale" fieldName="Gender" name="gender" />
                                     <label for="rdMale" style="margin-left: 8px">Nữ</label>
                                 </div>
                                 <div class="m-radio-item" style="margin-left: 10px; flex: 1;">
-                                    <input type="radio" id="rdOther" fieldName="Gender" value="2" name="gender" />
+                                    <input type="radio" value="2" id="rdOther" fieldName="Gender" name="gender" />
                                     <label for="rdOther" style="margin-left: 8px">Khác</label>
                                 </div>
                             </div>
@@ -234,6 +234,7 @@
             <div class="dialog-footer">
                 <button id="button-save" class="m-btn"><i class="far fa-save"></i><span class="btn-text">Lưu</span></button>
                 <button id="button-cancel" class="m-btn m-btn-cancel">Hủy</button>
+                <button id="button-delete" class="m-btn m-btn-cancel">Xóa</button>
             </div>
         </div>
     </div>
