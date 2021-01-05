@@ -40,24 +40,34 @@
         //Show detail infor when double click on object in table(dynamic event definitions)
         $('table tbody').on('dblclick', 'tr', function () {
             //load data for combobox
-            var select = $('select#cbxCustomerGroup');
-            select.empty();
-            //get value of group customers
-            $('.loading').show();
-            $.ajax({
-                url: me.host + "/api/customergroups",
-                method: "GET"
-            }).done(function (res) {
-                if (res) {
-                    $.each(res, function (index, object) {
-                        var option = $(`<option value="${object.CustomerGroupId}">${object.CustomerGroupName}</option>`);
-                        select.append(option);
-                    })
-                }
-                $('.loading').hide();
-            }).fail(function (res) {
-                $('.loading').hide();
+            var selects = $('select[fieldName]');
+            selects.empty();
+            $.each(selects, function (index, select) {
+                //get value of group customers
+                var api = $(select).attr('api');
+                var fieldName = $(select).attr('fieldName');
+                var fieldValue = $(select).attr('fieldValue');
+                $('.loading').show();
+                $.ajax({
+                    url: me.host + api,
+                    method: "GET",
+                    async: true
+                }).done(function (res) {
+                    if (res) {
+                        console.log(res);
+                        $.each(res, function (index, obj) {
+                            var option = $(`<option value="${obj[fieldValue]}">${obj[fieldName]}</option>`);
+                            console.log(select);
+                            $(select).append(option);
+                            console.log(option);
+                        })
+                    }
+                    $('.loading').hide();
+                }).fail(function (res) {
+                    $('.loading').hide();
+                })
             })
+
             me.FormMode = 'Edit';
             //Get primary key from table
             var recordId = $(this).data('recordId');
@@ -72,16 +82,20 @@
 
                 //data collection has been entered -> build to object
                 var inputs = $('input[fieldName], select[fieldName]');
-                var entity = {};
                 $.each(inputs, function (index, input) {
                     var propertyName = $(this).attr('fieldName');
                     var value = res[propertyName];
 
+                    //for combobox
+                    if ($(this).attr('id') == 'cbxCustomerGroup') {
+                        var propValueName = $(this).attr('fieldValue');
+                        value = res[propValueName];
+                        $(this).val(value);
+                    }
                     //for input date type
-                    if ($(this).attr('type') == 'date') {
+                    else if ($(this).attr('type') == 'date') {
                         $(this).val(formatStringDate(value));
                     }
-
                     //for input radio type
                     else if ($(this).attr('type') == "radio") {
                         var inputValue = this.value;
@@ -208,23 +222,32 @@
             $('input[type !="radio"]').val(null);
             $('input[type="radio"]').prop('checked', false);
             //load data for combobox
-            var select = $('select#cbxCustomerGroup');
-            select.empty();
-            //get value of group customers
-            $('.loading').show();
-            $.ajax({
-                url: me.host + "/api/customergroups",
-                method: "GET"
-            }).done(function (res) {
-                if (res) {
-                    $.each(res, function (index, object) {
-                        var option = $(`<option value="${object.CustomerGroupId}">${object.CustomerGroupName}</option>`);
-                        select.append(option);
-                    })
-                }
-                $('.loading').hide();
-            }).fail(function (res) {
-                $('.loading').hide();
+            var selects = $('select[fieldName]');
+            selects.empty();
+            $.each(selects, function (index, select) {
+                //get value of group customers
+                var api = $(select).attr('api');
+                var fieldName = $(select).attr('fieldName');
+                var fieldValue = $(select).attr('fieldValue');
+                $('.loading').show();
+                $.ajax({
+                    url: me.host + api,
+                    method: "GET",
+                    async: true
+                }).done(function (res) {
+                    if (res) {
+                        console.log(res);
+                        $.each(res, function (index, obj) {
+                            var option = $(`<option value="${obj[fieldValue]}">${obj[fieldName]}</option>`);
+                            console.log(select);
+                            $(select).append(option);
+                            console.log(option);
+                        })
+                    }
+                    $('.loading').hide();
+                }).fail(function (res) {
+                    $('.loading').hide();
+                })
             })
         } catch (e) {
             console.log(e);
