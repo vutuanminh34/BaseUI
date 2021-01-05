@@ -1,6 +1,6 @@
 ﻿/**
  * format data of datetime to dd/mm/yyyy
- * @param {any} date any type of data
+ * @param {Date} date any type of data
  * createdBy: vtminh (27/12/2020)
  */
 function formatDate(date) {
@@ -26,6 +26,25 @@ function formatDate(date) {
 function formatMoney(money) {
     if (money) {
         return money.toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$&.");
+    }
+    return "";
+}
+
+/**
+ * function user to convert string to date dd-mm-yyyy
+ * @param {Date} dateInput
+ */
+function formatStringDate(dateInput) {
+    if (dateInput) {
+        let year = parseInt(dateInput.substr(0, 4));
+        let month = parseInt(dateInput.substr(5, 2));
+        let day = parseInt(dateInput.substr(8, 2));
+
+        day = day >= 10 ? day : '0' + day;
+        month = month >= 10 ? month : '0' + month;
+
+        var date = `${year}-${month}-${day}`;
+        return date;
     }
     return "";
 }

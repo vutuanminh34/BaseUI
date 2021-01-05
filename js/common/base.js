@@ -79,12 +79,11 @@
 
                     //for input date type
                     if ($(this).attr('type') == 'date') {
-                        var propValueName = $(this).attr('fieldValue');
-                        value = res[propValueName];
+                        $(this).val(formatStringDate(value));
                     }
 
                     //for input radio type
-                    if ($(this).attr('type') == "radio") {
+                    else if ($(this).attr('type') == "radio") {
                         var inputValue = this.value;
 
                         if (value == inputValue) {
