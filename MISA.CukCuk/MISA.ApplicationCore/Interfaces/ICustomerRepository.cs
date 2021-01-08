@@ -6,7 +6,7 @@ using System.Text;
 namespace MISA.ApplicationCore.Interfaces
 {
     /// <summary>
-    /// Interface of list customer
+    /// Interface of list customer for repository
     /// </summary>
     /// createdBy: vtminh (7/1/2021)
     public interface ICustomerRepository

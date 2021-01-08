@@ -5,6 +5,10 @@ using System.Text;
 
 namespace MISA.ApplicationCore.Interfaces
 {
+    /// <summary>
+    /// Interface of the customer for service
+    /// </summary>
+    /// createdBy: vtminh (7/1/2021)
     public interface ICustomerService
     {
         IEnumerable<Customer> GetCustomers();
