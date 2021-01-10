@@ -6,16 +6,14 @@ namespace MISA.ApplicationCore.Interfaces
 {
      public interface IBaseRepository<TEntity>
     {
-        IEnumerable<TEntity> GetEmployees();
+        IEnumerable<TEntity> GetEntities();
 
-        TEntity GetEmployeeById(Guid employeeId);
+        TEntity GetEntityById(Guid Id);
 
-        TEntity GetEmployeeByCode(string employeeCode);
+        int Add(TEntity entity);
 
-        int AddEmployee(TEntity employee);
+        int Update(TEntity entity);
 
-        int UpdateEmployee(TEntity employee);
-
-        int DeleteEmployee(Guid employeeId);
+        int Delete(Guid Id);
     }
 }
