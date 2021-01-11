@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MISA.ApplicationCore.Services
 {
-    public abstract class BaseService<TEntity> : IBaseService<TEntity>
+    public class BaseService<TEntity> : IBaseService<TEntity>
     {
         IBaseRepository<TEntity> _baseRepository;
 
