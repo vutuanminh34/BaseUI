@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace MISA.ApplicationCore.Interfaces
 {
-     public interface IBaseRepository<TEntity>
+    public interface IBaseRepository<TEntity>
     {
         IEnumerable<TEntity> GetEntities();
 
@@ -15,5 +16,7 @@ namespace MISA.ApplicationCore.Interfaces
         int Update(TEntity entity);
 
         int Delete(Guid Id);
+
+        TEntity GetEntityByProperty(string propertyName, object propertyValue);
     }
 }

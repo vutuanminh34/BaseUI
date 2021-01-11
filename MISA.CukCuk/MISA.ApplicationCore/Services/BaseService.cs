@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MISA.ApplicationCore.Services
 {
-    public class BaseService<TEntity> : IBaseService<TEntity>
+    public abstract class BaseService<TEntity> : IBaseService<TEntity>
     {
         IBaseRepository<TEntity> _baseRepository;
 
@@ -16,14 +16,25 @@ namespace MISA.ApplicationCore.Services
             _baseRepository = baseRepository;
         }
         #endregion
-        public ServiceResult Add(TEntity entity)
+        public virtual int Add(TEntity entity)
         {
-            throw new NotImplementedException();
+            //validate
+            var isValidate = Validate(entity);
+            if (isValidate == true)
+            {
+                var rowAffects = _baseRepository.Add(entity);
+                return rowAffects;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
-        public ServiceResult Delete(Guid Id)
+        public int Delete(Guid Id)
         {
-            throw new NotImplementedException();
+            var res = _baseRepository.Delete(Id);
+            return res;
         }
 
         public IEnumerable<TEntity> GetEntities()
@@ -34,12 +45,46 @@ namespace MISA.ApplicationCore.Services
 
         public TEntity GetEntityById(Guid Id)
         {
-            throw new NotImplementedException();
+            var entity = _baseRepository.GetEntityById(Id);
+            return entity;
         }
 
-        public ServiceResult Update(TEntity entity)
+        public int Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            var rowAffects = _baseRepository.Update(entity);
+            return rowAffects;
+        }
+
+        private bool Validate(TEntity entity)
+        {
+            var isValidate = true;
+            //Get all properties
+            var properties = entity.GetType().GetProperties();
+            foreach (var property in properties)
+            {
+                //Check attribute need to validate
+                if (property.IsDefined(typeof(Required), false))
+                {
+                    //Check required
+                    var propertyValue = property.GetValue(entity);
+                    if (propertyValue == null)
+                    {
+                        isValidate = false;
+                    }
+                }
+
+                if (property.IsDefined(typeof(CheckDuplicate), false))
+                {
+                    //Check duplicate
+                    var propertyName = property.Name;
+                    var entityDuplicate = _baseRepository.GetEntityByProperty(propertyName, property.GetValue(entity));
+                    if (entityDuplicate != null)
+                    {
+                        isValidate = false;
+                    }
+                } 
+            }
+            return isValidate;
         }
     }
 }

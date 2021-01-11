@@ -19,24 +19,28 @@ namespace MISA.CukCuk.Web.Controllers
         {
             _baseService = baseService;
         }
-        // GET: api/<BaseEntityController>
+        
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            var entities = _baseService.GetEntities();
+            return Ok(entities);
         }
 
-        // GET api/<BaseEntityController>/5
+        
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(Guid id)
         {
-            return "value";
+            var entity = _baseService.GetEntityById(id);
+            return Ok(entity);
         }
 
         // POST api/<BaseEntityController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] TEntity entity)
         {
+            var rowAffects = _baseService.Add(entity);
+            return Ok(rowAffects);
         }
 
         // PUT api/<BaseEntityController>/5
@@ -47,8 +51,10 @@ namespace MISA.CukCuk.Web.Controllers
 
         // DELETE api/<BaseEntityController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(Guid id)
         {
+            var res = _baseService.Delete(id);
+            return Ok(res);
         }
     }
 }

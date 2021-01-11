@@ -9,12 +9,23 @@ namespace MISA.ApplicationCore.Interfaces
     /// Interface of the customer for service
     /// </summary>
     /// createdBy: vtminh (7/1/2021)
-    public interface ICustomerService
+    public interface ICustomerService: IBaseService<Customer>
     {
-        IEnumerable<Customer> GetCustomers();
-        Customer GetCustomerById(Guid customerId);
-        ServiceResult AddCustomer(Customer customer);
-        ServiceResult UpdateCustomer(Customer customer);
-        ServiceResult DeleteCustomer(Guid customerId);
+        /// <summary>
+        /// Get value of paging
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <param name="offset"></param>
+        /// <returns>list customer with paging</returns>
+        ///  createdBy: vtminh (11/1/2021)
+        IEnumerable<Customer> GetCustomerPaging(int limit, int offset);
+
+        /// <summary>
+        /// Get list customer by group customer id
+        /// </summary>
+        /// <param name="GroupId">GroupCustomerId</param>
+        /// <returns>List customer</returns>
+        ///  createdBy: vtminh (11/1/2021)
+        IEnumerable<Customer> GetCustomerByGroup(Guid GroupId);
     }
 }
