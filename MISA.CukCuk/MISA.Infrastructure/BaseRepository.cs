@@ -1,16 +1,19 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using MISA.ApplicationCore.Entities;
+using MISA.ApplicationCore.Enums;
 using MISA.ApplicationCore.Interfaces;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace MISA.Infrastructure
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity>
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
         #region Declare
         IConfiguration _configuration;
@@ -81,29 +84,43 @@ namespace MISA.Infrastructure
         private DynamicParameters MappingDbType(TEntity entity)
         {
             var properties = entity.GetType().GetProperties();
-            var paremeters = new DynamicParameters();
+            var parameters = new DynamicParameters();
             foreach (var prop in properties)
             {
                 var propertyName = prop.Name;
-                var propertyVal = prop.GetValue(entity);
+                var propertyValue = prop.GetValue(entity);
                 var propertyType = prop.PropertyType;
                 if (propertyType == typeof(Guid) || propertyType == typeof(Guid?))
                 {
-                    paremeters.Add($"@{propertyName}", propertyVal, DbType.String);
+                    parameters.Add($"@{propertyName}", propertyValue, DbType.String);
+                }
+                else if (propertyType == typeof(bool) || propertyType == typeof(bool?))
+                {
+                    var dbValue = ((bool)propertyValue == true ? 1 : 0);
+                    parameters.Add($"@{propertyName}", dbValue, DbType.Int32);
                 }
                 else
                 {
-                    paremeters.Add($"@{propertyName}", propertyVal);
+                    parameters.Add($"@{propertyName}", propertyValue);
                 }
             }
-            return paremeters;
+            return parameters;
         }
 
-        public TEntity GetEntityByProperty(string propertyName, object propertyValue)
+        public TEntity GetEntityByProperty(TEntity entity, PropertyInfo property)
         {
-            var query = $"SELECT * FROM {_tableName} WHERE {propertyName} = '{propertyValue}'";
-            var entity = _dbConnection.Query<TEntity>(query, commandType: CommandType.Text).FirstOrDefault();
-            return entity;
+            var propertyName = property.Name;
+            var propertyValue = property.GetValue(entity);
+            var keyValue = entity.GetType().GetProperty($"{_tableName}Id").GetValue(entity);
+            var query = string.Empty;
+            if (entity.EntityState == EntityState.Insert)
+                query = $"SELECT * FROM {_tableName} WHERE {propertyName} = '{propertyValue}'";
+            else if (entity.EntityState == EntityState.Update)
+                query = $"SELECT * FROM {_tableName} WHERE {propertyName} = '{propertyValue}' AND {_tableName}Id <> '{keyValue}'";
+            else
+                return null;
+            var entityReturn = _dbConnection.Query<TEntity>(query, commandType: CommandType.Text).FirstOrDefault();
+            return entityReturn;
         }
         #endregion
     }

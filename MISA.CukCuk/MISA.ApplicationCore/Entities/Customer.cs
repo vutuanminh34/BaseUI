@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace MISA.ApplicationCore.Entities
     /// Khách hàng
     /// </summary>
     /// createdBy: vtminh (6/1/2021)
-    public class Customer
+    public class Customer : BaseEntity
     {
         #region Declare
         #endregion
@@ -31,13 +32,15 @@ namespace MISA.ApplicationCore.Entities
         /// <summary>
         /// Mã khách hàng
         /// </summary>
-        [CheckDuplicate]
         [Required]
+        [DisplayName("mã khách hàng")]
+        [MaxLength(20,"Mã khách hàng không vượt quá 20 ký tự!")]
         public string CustomerCode { get; set; }
 
         /// <summary>
         /// Họ và tên
         /// </summary>
+        [DisplayName("họ và tên")]
         public string FullName { get; set; }
 
         /// <summary>
@@ -73,6 +76,8 @@ namespace MISA.ApplicationCore.Entities
         /// <summary>
         /// Số điện thoại
         /// </summary>
+        [CheckDuplicate]
+        [DisplayName("số điện thoại")]
         public string PhoneNumber { get; set; }
 
         /// <summary>
@@ -89,26 +94,6 @@ namespace MISA.ApplicationCore.Entities
         /// Địa chỉ khách hàng
         /// </summary>
         public string  Address { get; set; }
-
-        /// <summary>
-        /// Ngày tạo bản ghi
-        /// </summary>
-        public DateTime? CreatedDate { get; set; }
-
-        /// <summary>
-        /// Người tạo bản ghi
-        /// </summary>
-        public string CreatedBy { get; set; }
-
-        /// <summary>
-        /// Ngày sửa bản ghi
-        /// </summary>
-        public DateTime? ModifiedDate { get; set; }
-
-        /// <summary>
-        /// Người sửa bản ghi
-        /// </summary>
-        public string ModifiedBy { get; set; }
 
         /// <summary>
         /// Nhóm khách hàng

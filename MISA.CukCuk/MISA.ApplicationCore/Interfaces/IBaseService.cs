@@ -9,8 +9,8 @@ namespace MISA.ApplicationCore.Interfaces
     {
         IEnumerable<TEntity> GetEntities();
         TEntity GetEntityById(Guid Id);
-        int Add(TEntity entity);
-        int Update(TEntity entity);
-        int Delete(Guid Id);
+        ServiceResult Add(TEntity entity);
+        ServiceResult Update(TEntity entity);
+        ServiceResult Delete(Guid Id);
     }
 }

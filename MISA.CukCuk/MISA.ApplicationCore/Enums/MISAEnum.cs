@@ -22,4 +22,14 @@ namespace MISA.ApplicationCore.Enums
         /// </summary>
         Success = 200
     }
+
+    /// <summary>
+    /// State of object
+    /// </summary>
+    public enum EntityState
+    {
+        Insert = 1,
+        Update = 2,
+        Delete = 3
+    }
 }
