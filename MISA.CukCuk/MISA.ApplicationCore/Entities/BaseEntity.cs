@@ -30,10 +30,20 @@ namespace MISA.ApplicationCore.Entities
 
         public string ErrorMsg { get; set; }
 
-        public MaxLength(int length, string errorMsg)
+        public MaxLength(int length, string errorMsg = null)
         {
             this.Value = length;
             this.ErrorMsg = errorMsg;
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class DisplayName : Attribute
+    {
+        public string Name { get; set; }
+        public DisplayName(string name = null)
+        {
+            this.Name = name;
         }
     }
 
