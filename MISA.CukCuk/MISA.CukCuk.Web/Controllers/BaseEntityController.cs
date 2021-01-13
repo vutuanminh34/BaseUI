@@ -39,8 +39,12 @@ namespace MISA.CukCuk.Web.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] TEntity entity)
         {
-            var rowAffects = _baseService.Add(entity);
-            return Ok(rowAffects);
+            var serviceResult = _baseService.Add(entity);
+            if(serviceResult.MISACode == ApplicationCore.Enums.MISACode.NotValid)
+            {
+                return BadRequest(serviceResult);
+            }else
+                return Ok(serviceResult);
         }
 
         // PUT api/<BaseEntityController>/5
@@ -59,8 +63,13 @@ namespace MISA.CukCuk.Web.Controllers
             {
                 keyProperty.SetValue(entity, id);
             }
-            var rowAffects = _baseService.Update(entity);
-            return Ok(rowAffects);
+            var serviceResult = _baseService.Update(entity);
+            if (serviceResult.MISACode == ApplicationCore.Enums.MISACode.NotValid)
+            {
+                return BadRequest(serviceResult);
+            }
+            else
+                return Ok(serviceResult);
         }
 
         // DELETE api/<BaseEntityController>/5

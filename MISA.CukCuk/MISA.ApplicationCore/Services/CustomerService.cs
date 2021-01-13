@@ -18,27 +18,10 @@ namespace MISA.ApplicationCore.Services
         #endregion
 
         #region Method
-        //public override int Add(Customer entity)
-        //{
-        //    //validate infor
-        //    var isValid = true;
-        //    //1. Validate CustomerCode
-        //    var customerDuplicate = _customerRepository.GetCustomerByCode(entity.CustomerCode);
-        //    if (customerDuplicate != null)
-        //    {
-        //        isValid = false;
-        //    }
-        //    //Logic validate
-        //    if(isValid == true)
-        //    {
-        //        var res = base.Add(entity);
-        //        return res;
-        //    }
-        //    else
-        //    {
-        //        return 0;
-        //    }
-        //}
+        protected override bool ValidateCustom(Customer entity)
+        {
+            return true;
+        }
 
         public IEnumerable<Customer> GetCustomerPaging(int limit, int offset)
         {

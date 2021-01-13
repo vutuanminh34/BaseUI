@@ -1,6 +1,6 @@
 ﻿class BaseJS {
     constructor() {
-        this.host = "http://api.manhnv.net";
+        this.host = "http://localhost:65432";
         this.apiRouter = null;
         this.setApiRouter();
         this.loadData();
@@ -281,21 +281,24 @@
             //Check value of radio, Give only checked
             if ($(this).attr('type') == "radio") {
                 if (this.checked) {
-                    value = $(this).attr('value');
                     entity[propertyName] = value;
                 }
             } else {
+                entity[propertyName] = value;
+            }
+
+            if (this.tagName == "SELECT") {
+                var propertyName = $(this).attr('fieldValue');
                 entity[propertyName] = value;
             }
         })
         var method = "POST";
         if (me.FormMode == 'Edit') {
             method = "PUT";
-            entity.CustomerId = me.recordId;
         }
         //call service and save data
         $.ajax({
-            url: me.host + me.apiRouter,
+            url: me.host + me.apiRouter + `/${me.recordId}`,
             method: method,
             data: JSON.stringify(entity),
             contentType: 'application/json',

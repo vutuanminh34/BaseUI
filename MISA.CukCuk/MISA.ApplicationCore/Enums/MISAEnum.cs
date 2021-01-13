@@ -20,7 +20,11 @@ namespace MISA.ApplicationCore.Enums
         /// <summary>
         /// Thành công
         /// </summary>
-        Success = 200
+        Success = 200,
+        /// <summary>
+        /// exception
+        /// </summary>
+        Exception = 500
     }
 
     /// <summary>
@@ -31,5 +35,52 @@ namespace MISA.ApplicationCore.Enums
         Insert = 1,
         Update = 2,
         Delete = 3
+    }
+
+    /// <summary>
+    /// Value of gender
+    /// </summary>
+    public enum Gender
+    {
+        /// <summary>
+        /// Nữ
+        /// </summary>
+        Female,
+
+        /// <summary>
+        /// Nam
+        /// </summary>
+        Male,
+
+        /// <summary>
+        /// Chưa xác định
+        /// </summary>
+        Other,
+    }
+
+    /// <summary>
+    /// Value of WordStatus
+    /// </summary>
+    public enum WorkStatus
+    {
+        /// <summary>
+        /// Đã nghỉ việc
+        /// </summary>
+        Resign,
+
+        /// <summary>
+        /// Đang làm việc
+        /// </summary>
+        Working,
+
+        /// <summary>
+        /// Đang thử việc
+        /// </summary>
+        TrailWork,
+
+        /// <summary>
+        /// Đã nghỉ hưu
+        /// </summary>
+        Retired
     }
 }

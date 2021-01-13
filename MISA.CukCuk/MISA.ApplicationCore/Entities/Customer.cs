@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MISA.ApplicationCore.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -65,7 +66,7 @@ namespace MISA.ApplicationCore.Entities
         /// <summary>
         /// Giới tính(1-Nam, 0-Nữ, 2-Khác)
         /// </summary>
-        public int? Gender { get; set; }
+        public Gender? Gender { get; set; }
 
         /// <summary>
         /// Địa chỉ Email

@@ -11,7 +11,7 @@ class EmployeeJS extends BaseJS {
         super();
     }
     setApiRouter() {
-        this.apiRouter = "/api/employees";
+        this.apiRouter = "/api/v1/employees";
     }
 
 }

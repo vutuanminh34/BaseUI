@@ -13,7 +13,7 @@ using System.Text;
 
 namespace MISA.Infrastructure
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity>, IDisposable where TEntity : BaseEntity
     {
         #region Declare
         IConfiguration _configuration;
@@ -35,17 +35,37 @@ namespace MISA.Infrastructure
         #region Method
         public int Add(TEntity entity)
         {
-            //Mapping type of data
-            var parameters = MappingDbType(entity);
-            //Excute commandText
-            var rowAffects = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
+            var rowAffects = 0;
+            _dbConnection.Open();
+            using(var transaction = _dbConnection.BeginTransaction())
+            {
+                try
+                {
+                    //Mapping type of data
+                    var parameters = MappingDbType(entity);
+                    //Excute commandText
+                    rowAffects = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+
+                    transaction.Rollback();
+                }
+            }
             //Return number of record have been inserted
             return rowAffects;
         }
 
-        public int Delete(Guid Id)
+        public int Delete(Guid id)
         {
-            var res = _dbConnection.Execute("Proc_DeleteCustomerById", new { CustomerId = Id.ToString() }, commandType: CommandType.StoredProcedure);
+            var res = 0;
+            _dbConnection.Open();
+            using (var transaction = _dbConnection.BeginTransaction())
+            {
+                res = _dbConnection.Execute($"DELETE FROM {_tableName} WHERE {_tableName}Id = '{id.ToString()}'", commandType: CommandType.Text);
+                transaction.Commit();
+            }  
             return res;
         }
 
@@ -85,11 +105,11 @@ namespace MISA.Infrastructure
         {
             var properties = entity.GetType().GetProperties();
             var parameters = new DynamicParameters();
-            foreach (var prop in properties)
+            foreach (var property in properties)
             {
-                var propertyName = prop.Name;
-                var propertyValue = prop.GetValue(entity);
-                var propertyType = prop.PropertyType;
+                var propertyName = property.Name;
+                var propertyValue = property.GetValue(entity);
+                var propertyType = property.PropertyType;
                 if (propertyType == typeof(Guid) || propertyType == typeof(Guid?))
                 {
                     parameters.Add($"@{propertyName}", propertyValue, DbType.String);
@@ -121,6 +141,12 @@ namespace MISA.Infrastructure
                 return null;
             var entityReturn = _dbConnection.Query<TEntity>(query, commandType: CommandType.Text).FirstOrDefault();
             return entityReturn;
+        }
+
+        public void Dispose()
+        {
+            if (_dbConnection.State == ConnectionState.Open)
+                _dbConnection.Close();
         }
         #endregion
     }

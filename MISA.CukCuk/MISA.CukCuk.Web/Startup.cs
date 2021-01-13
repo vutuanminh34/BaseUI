@@ -9,8 +9,10 @@ using Microsoft.Extensions.Logging;
 using MISA.ApplicationCore;
 using MISA.ApplicationCore.Interfaces;
 using MISA.ApplicationCore.Services;
-using MISA.CukCuk.Web.Middwares;
+using MISA.CukCuk.Web.Middewares;
 using MISA.Infrastructure;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,8 +32,14 @@ namespace MISA.CukCuk.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddCors();
+            services.AddControllers()
+            .AddNewtonsoftJson(options =>
+             {
+                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 
+             });
             // Add middaware used for mapping data with guid type
             SqlMapper.AddTypeHandler(new MySqlGuidTypeHandler());
             SqlMapper.RemoveTypeMap(typeof(Guid));
@@ -44,6 +52,8 @@ namespace MISA.CukCuk.Web
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IEmloyeeRepository, EmployeeRepository>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<ICustomerGroupRepository, CustomerGroupRepository>();
+            services.AddScoped<ICustomerGroupService, CustomerGroupService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,9 +63,9 @@ namespace MISA.CukCuk.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseRouting();
-
+            app.UseCors(option => option.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader());
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

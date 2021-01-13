@@ -11,7 +11,7 @@ class CustomerJS extends BaseJS {
         super();
     }
     setApiRouter() {
-        this.apiRouter = "/api/customers";
+        this.apiRouter = "/api/v1/customers";
     }
 
 }

@@ -70,6 +70,11 @@ namespace MISA.ApplicationCore.Services
             }
         }
 
+        /// <summary>
+        /// Base function used to validate data 
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         private bool Validate(TEntity entity)
         {
             var isValidate = true;
@@ -79,7 +84,13 @@ namespace MISA.ApplicationCore.Services
             foreach (var property in properties)
             {
                 var propertyValue = property.GetValue(entity);
-                var displayName = property.GetCustomAttributes(typeof(DisplayNameAttribute), true);
+                var displayName = string.Empty;
+                var displayNameAttributes = property.GetCustomAttributes(typeof(DisplayName), true);
+                if(displayNameAttributes.Length > 0)
+                {
+                    displayName = (displayNameAttributes[0] as DisplayName).Name;
+                }
+                
                 //Check attribute need to validate
                 if (property.IsDefined(typeof(Required), false))
                 {
@@ -87,9 +98,9 @@ namespace MISA.ApplicationCore.Services
                     if (propertyValue == null)
                     {
                         isValidate = false;
-                        _serviceResult.Data = $"Thông tin {displayName} không được phép để trống!";
+                        _serviceResult.Data = string.Format(Properties.Resources.Msg_Required, displayName);
                         _serviceResult.MISACode = Enums.MISACode.NotValid;
-                        _serviceResult.Messenger = "Dữ liệu không hợp lệ";
+                        _serviceResult.Messenger = Properties.Resources.Msg_IsNotValid;
                     }
                 }
 
@@ -100,9 +111,9 @@ namespace MISA.ApplicationCore.Services
                     if (entityDuplicate != null)
                     {
                         isValidate = false;
-                        _serviceResult.Data = $"Thông tin {displayName} không được phép trùng nhau!";
+                        _serviceResult.Data = string.Format(Properties.Resources.Msg_Duplicate, displayName);
                         _serviceResult.MISACode = Enums.MISACode.NotValid;
-                        _serviceResult.Messenger = "Dữ liệu không hợp lệ";
+                        _serviceResult.Messenger = Properties.Resources.Msg_IsNotValid;
                     }
                 }
                 if (property.IsDefined(typeof(MaxLength), false))
@@ -116,11 +127,25 @@ namespace MISA.ApplicationCore.Services
                         isValidate = false;
                         _serviceResult.Data = msg;
                         _serviceResult.MISACode = Enums.MISACode.NotValid;
-                        _serviceResult.Messenger = "Dữ liệu không hợp lệ";
+                        _serviceResult.Messenger = Properties.Resources.Msg_IsNotValid;
                     }
                 }
             }
+            if (isValidate == true)
+            {
+                isValidate = ValidateCustom(entity);
+            }
             return isValidate;
+        }
+
+        /// <summary>
+        /// Function used to check data custom
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        protected virtual bool ValidateCustom(TEntity entity)
+        {
+            return true;
         }
     }
 }

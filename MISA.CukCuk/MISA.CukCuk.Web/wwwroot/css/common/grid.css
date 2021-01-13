@@ -2,7 +2,7 @@
     height: calc(100vh - 202px);
     overflow: auto;
     padding-left: 16px;
-    text-align: left;
+    text-align: center;
 }
 
     .grid::-webkit-scrollbar {
