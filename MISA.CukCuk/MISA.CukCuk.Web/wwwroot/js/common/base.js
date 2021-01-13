@@ -34,6 +34,9 @@
             $('.dialog-detail').addClass('hide-dialog');
         });
 
+        //Event click on button "Xoa"
+        $('#button-delete').click(me.btnDeleteOnClick.bind(me));
+
         //Excute save data when click button "Luu"
         $('#button-save').click(me.btnSaveOnClick.bind(me));
 
@@ -293,12 +296,14 @@
             }
         })
         var method = "POST";
+        var id = ``;
         if (me.FormMode == 'Edit') {
             method = "PUT";
+            id = `/${me.recordId}`;
         }
         //call service and save data
         $.ajax({
-            url: me.host + me.apiRouter + `/${me.recordId}`,
+            url: me.host + me.apiRouter + id,
             method: method,
             data: JSON.stringify(entity),
             contentType: 'application/json',
@@ -317,5 +322,28 @@
         }).fail(function (res) {
 
         })
+    }
+
+    btnDeleteOnClick() {
+        var me = this;
+        try {
+            var result = confirm("Bạn có chắc chắn muốn xóa?");
+            if (result) {
+                $.ajax({
+                    url: me.host + me.apiRouter + `/${me.recordId}`,
+                    method: "DELETE"
+                }).done(function (res) {
+                    alert('Xóa thành công!');
+                    $('.dialog-detail').removeClass('show-dialog');
+                    $('.dialog-detail').addClass('hide-dialog');
+                    me.loadData();
+
+                }).fail(function (res) {
+
+                })
+            }
+        } catch (e) {
+
+        }
     }
 }
