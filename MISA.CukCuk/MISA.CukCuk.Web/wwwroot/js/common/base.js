@@ -190,6 +190,9 @@
                                 td.addClass("text-align-right");
                                 value = formatMoney(value);
                                 break;
+                            case "Gender":
+                                value = formatGender(value);
+                                break;
                             default:
                                 break;
                         }

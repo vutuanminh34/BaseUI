@@ -31,8 +31,9 @@ function formatMoney(money) {
 }
 
 /**
- * function user to convert string to date dd-mm-yyyy
+ * function used to convert string to date dd-mm-yyyy
  * @param {Date} dateInput
+ * createdBy : vtminh (29/12/2020)
  */
 function formatStringDate(dateInput) {
     if (dateInput) {
@@ -47,4 +48,18 @@ function formatStringDate(dateInput) {
         return date;
     }
     return "";
+}
+
+/**
+ * function used to format gender
+ * @param {Number} gender 
+ * createdBy: vtminh(14/1/2021)
+ */
+function formatGender(gender) {
+    if (gender == 1)
+        return "Nam";
+    else if (gender == 0)
+        return "Nữ";
+    else
+        return "Khác";
 }

@@ -15,3 +15,10 @@
 .input-search {
     padding-left: 40px;
 }
+#cbxCustomerGroup {
+    width: 203px;
+    height: 37px;
+    border-radius: 4px;
+    border: 1px solid #BBBBBB;
+    outline: none;
+}

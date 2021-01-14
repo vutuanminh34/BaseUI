@@ -90,7 +90,7 @@
                     <tr>
                         <th fieldName="CustomerCode">Mã khách hàng</th>
                         <th fieldName="FullName">Họ và tên</th>
-                        <th fieldName="GenderName">Giới tính</th>
+                        <th fieldName="Gender" formatType="Gender">Giới tính</th>
                         <th fieldName="DateOfBirth" formatType="ddmmyyyy">Ngày sinh</th>
                         <th fieldName="CustomerGroupName">Nhóm khách hàng</th>
                         <th fieldName="PhoneNumber">Điện thoại</th>
@@ -176,7 +176,7 @@
                         <div class="down">
                             <div>Nhóm khách hàng</div>
                             <div class="space">
-                                <select id="cbxCustomerGroup" fieldName="CustomerGroupName" fieldValue="CustomerGroupId" api="/api/v1/customergroups" style="width: 203px; height: 37px; border-radius: 4px; border: 1px solid #BBBBBB; outline: none;">
+                                <select id="cbxCustomerGroup" fieldName="CustomerGroupName" fieldValue="CustomerGroupId" api="/api/v1/customergroups">
                                     <!--<option value="19165ed7-212e-21c4-0428-030d4265475f">Khách VIP</option>
                                     <option value="7a0b757e-41eb-4df6-c6f8-494a84b910f4">Khách thường</option>
                                     <option value="3631011e-4559-4ad8-b0ad-cb989f2177da">Khách vãng lai</option>-->
