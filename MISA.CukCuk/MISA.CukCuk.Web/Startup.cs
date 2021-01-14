@@ -67,7 +67,8 @@ namespace MISA.CukCuk.Web
             app.UseRouting();
             app.UseCors(option => option.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader());
             app.UseAuthorization();
-
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

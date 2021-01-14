@@ -9,6 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MISA.ApplicationCore", "MIS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MISA.Infrastructure", "MISA.Infrastructure\MISA.Infrastructure.csproj", "{10F0CBA5-A121-4AFF-ABA3-1A8844EDB73A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solotion Files", "Solotion Files", "{2456A53F-0703-4C93-B364-060EBD9F57FC}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -4,8 +4,11 @@
     outline: none;
     border: 1px solid #BBBBBB;
 }
+    input:focus, select:focus {
+        border-color: #019160;
+    }
 
-    input::placeholder {
+    input:placeholder {
         font-size: 11px;
     }
 

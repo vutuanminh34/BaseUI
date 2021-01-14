@@ -1,4 +1,4 @@
-﻿.button-default {
+.button-default {
     display: flex;
     align-items: center;
     background-color: #019160;
@@ -82,9 +82,9 @@
 
 .m-btn-cancel {
     color: #000000;
-    background-color: transparent;
+    background-color: #88888888;
 }
 
     .m-btn-cancel:hover, .m-btn-cancel:focus {
-        background-color: #BBBBBB;
+        background-color: #eb3434;
     }

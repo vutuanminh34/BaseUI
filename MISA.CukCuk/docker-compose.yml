@@ -1,0 +1,16 @@
+version: '3'
+networks: 
+  vtminh-network:
+    external: true
+services:
+  vtminh-cukcuk:
+    image: mf651-vtminh
+    container_name: mf651-vtminh
+    restart: always
+    networks:
+      - vtminh-network
+    ports:
+      - '8002:80'
+    build:
+      context: .
+      dockerfile: MISA.CukCuk.Web/Dockerfile

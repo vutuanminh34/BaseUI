@@ -1,6 +1,6 @@
 ﻿class BaseJS {
     constructor() {
-        this.host = "http://localhost:65432";
+        this.host = "";
         this.apiRouter = null;
         this.setApiRouter();
         this.loadData();

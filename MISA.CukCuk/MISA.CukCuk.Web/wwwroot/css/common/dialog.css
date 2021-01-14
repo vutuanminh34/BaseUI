@@ -1,4 +1,4 @@
-﻿.dialog-detail {
+.dialog-detail {
     position: relative;
 }
 
@@ -26,7 +26,7 @@
 .dialog-detail .dialog-content {
     position: absolute;
     width: 700px;
-    height: 570px;
+    height: 555px;
     background-color: #FFFFFF;
     z-index: 9999;
     border-radius: 5px;
@@ -129,14 +129,14 @@
             float: left;
         }
         .dialog-detail .dialog-content .dialog-body .foot-body .foot-bottom input {
-            width: 604px;
+            width: 600px;
         }
 
         .dialog-detail .dialog-content .dialog-body .foot-body .foot-left input {
             width: 380px;
         }
     .dialog-detail .dialog-content .dialog-footer {
-        padding: 24px 24px 24px 24px;
+        padding: 12px 24px 22px 24px;
         width: calc(100% - 48px);
         height: 30px;
         position: absolute;
