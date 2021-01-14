@@ -25,6 +25,11 @@ namespace MISA.ApplicationCore.Entities
         public string FullName { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public int? Gender { get; set; }
+
+        /// <summary>
+        /// Số chứng minh thư
+        /// </summary>
+        [CheckDuplicate]
         public string IdentificationNumber { get; set; }
         public DateTime? IdentificationDate { get; set; }
         public string IdentificationLocation { get; set; }

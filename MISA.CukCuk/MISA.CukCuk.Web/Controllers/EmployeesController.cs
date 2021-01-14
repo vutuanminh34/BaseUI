@@ -12,11 +12,11 @@ namespace MISA.CukCuk.Web.Controllers
 {
     public class EmployeesController : BaseEntityController<Employee>
     {
-        IBaseService<Employee> _baseService;
+        IEmployeeService _employeeService;
 
-        public EmployeesController(IBaseService<Employee> baseService) : base(baseService)
+        public EmployeesController(IEmployeeService employeeService) : base(employeeService)
         {
-            _baseService = baseService;
+            _employeeService = employeeService;
         }
     }
 }

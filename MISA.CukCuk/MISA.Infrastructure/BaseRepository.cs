@@ -47,9 +47,8 @@ namespace MISA.Infrastructure
                     rowAffects = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
                     transaction.Commit();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-
                     transaction.Rollback();
                 }
             }
