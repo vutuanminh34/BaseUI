@@ -6,42 +6,22 @@ using System.Text;
 
 namespace MISA.ApplicationCore.Services
 {
-    public class EmployeeService : IEmployeeService
+    public class EmployeeService : BaseService<Employee>, IEmployeeService
     {
-        IEmloyeeRepository _emloyeeRepository;
+        IEmployeeRepository _employeeRepository;
         #region Constructor
-        public EmployeeService(IEmloyeeRepository emloyeeRepository)
+        public EmployeeService(IEmployeeRepository employeeRepository) : base(employeeRepository)
         {
-            _emloyeeRepository = emloyeeRepository;
+            _employeeRepository = employeeRepository;
         }
         #endregion
 
         #region Method
-        public ServiceResult AddEmployee(Employee employee)
+        protected override bool ValidateCustom(Employee entity)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
-        public ServiceResult DeleteEmployee(Guid employeeId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Employee GetEmployeeById(Guid employeeId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Employee> GetEmployees()
-        {
-            var res = _emloyeeRepository.GetEmployees();
-            return res;
-        }
-
-        public ServiceResult UpdateEmployee(Employee employee)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
     }
 }

@@ -6,11 +6,11 @@ using System.Text;
 namespace MISA.ApplicationCore.Interfaces
 {
     /// <summary>
-    /// Interface of the employee for service
+    /// Interface of list employee for repository
     /// </summary>
     /// createdBy: vtminh (8/1/2021)
-    public interface IEmployeeService : IBaseService<Employee>
+    public interface IEmployeeRepository : IBaseRepository<Employee>
     {
-
+        
     }
 }

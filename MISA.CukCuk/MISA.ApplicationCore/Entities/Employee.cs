@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MISA.ApplicationCore.Entities
 {
-    public class Employee
+    public class Employee : BaseEntity
     {
         #region Property
         public Guid EmployeeId { get; set; }
@@ -25,10 +25,6 @@ namespace MISA.ApplicationCore.Entities
         public double? BaseSalary { get; set; }
         public DateTime? JoiningDate { get; set; }
         public int? WorkStatus { get; set; }
-        public DateTime? CreatedDate { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime? ModifiedDate { get; set; }
-        public string ModifiedBy { get; set; }
         #endregion  
     }
 }

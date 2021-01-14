@@ -77,10 +77,10 @@ namespace MISA.Infrastructure
             return entities;
         }
 
-        public TEntity GetEntityById(Guid Id)
+        public TEntity GetEntityById(Guid id)
         {
             //Create commandText
-            var customers = _dbConnection.QueryFirstOrDefault<TEntity>($"Proc_Get{_tableName}ById", new { CustomerId = Id.ToString() }, commandType: CommandType.StoredProcedure);
+            var customers = _dbConnection.QueryFirstOrDefault<TEntity>($"SELECT * FROM {_tableName} WHERE {_tableName}Id = '{id.ToString()}' LIMIT 1", commandType: CommandType.Text);
             //Return data
             return customers;
         }

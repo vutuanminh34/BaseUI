@@ -50,7 +50,7 @@ namespace MISA.CukCuk.Web
             services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ICustomerService, CustomerService>();
-            services.AddScoped<IEmloyeeRepository, EmployeeRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<ICustomerGroupRepository, CustomerGroupRepository>();
             services.AddScoped<ICustomerGroupService, CustomerGroupService>();
