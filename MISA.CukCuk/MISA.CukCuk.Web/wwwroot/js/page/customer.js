@@ -12,6 +12,7 @@ class CustomerJS extends BaseJS {
     }
     setApiRouter() {
         this.apiRouter = "/api/v1/customers";
+        this.objectName = "Customer";
     }
 
 }

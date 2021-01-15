@@ -60,8 +60,10 @@ function formatGender(gender) {
         return "Nam";
     else if (gender == 0)
         return "Nữ";
-    else
+    else if (gender == 2)
         return "Khác";
+    else
+        return "";
 }
 
 /**
@@ -74,6 +76,8 @@ function formatWorkStatus(workStatus) {
         return "Đang làm việc";
     else if (workStatus == 0)
         return "Đã nghỉ việc";
-    else
+    else if (workStatus == 2)
         return "Đang thử việc";
+    else
+        return "";
 }

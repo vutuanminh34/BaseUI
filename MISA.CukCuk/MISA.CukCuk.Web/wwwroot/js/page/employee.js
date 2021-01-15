@@ -12,6 +12,7 @@ class EmployeeJS extends BaseJS {
     }
     setApiRouter() {
         this.apiRouter = "/api/v1/employees";
+        this.objectName = "Employee";
     }
 
 }

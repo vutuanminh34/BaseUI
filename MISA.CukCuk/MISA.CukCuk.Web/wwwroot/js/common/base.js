@@ -2,6 +2,7 @@
     constructor() {
         this.host = "";
         this.apiRouter = null;
+        this.objectName = null;
         this.setApiRouter();
         this.loadData();
         this.initEvents();
@@ -84,7 +85,7 @@
                 console.log(res);
 
                 //data collection has been entered -> build to object
-                var inputs = $('input[fieldName], select[fieldName], select[id]');
+                var inputs = $('input[fieldName], select[id]');
                 $.each(inputs, function (index, input) {
                     var propertyName = $(this).attr('fieldName');
                     var value = res[propertyName];
@@ -226,8 +227,12 @@
             }).done(function (res) {
                 var data = res;
                 $.each(data, function (index, obj) {
+                    var check = me.objectName;
                     var tr = $(`<tr></tr>`);
-                    $(tr).data('recordId', obj.EmployeeId);
+                    if (check == "Customer")
+                        $(tr).data('recordId', obj.CustomerId);
+                    else
+                        $(tr).data('recordId', obj.EmployeeId);
                     //get value use for mapping with the corresponding columns
                     $.each(columns, function (index, th) {
                         var td = $(`<td></td>`);
@@ -336,7 +341,7 @@
             return;
         }
         //data collection has been entered -> build to object
-        var inputs = $('input[fieldName], select[fieldName]');
+        var inputs = $('input[fieldName], select[id]');
         var entity = {};
         $.each(inputs, function (index, input) {
             var propertyName = $(this).attr('fieldName');
