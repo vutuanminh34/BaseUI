@@ -84,39 +84,40 @@
                 console.log(res);
 
                 //data collection has been entered -> build to object
-                var inputs = $('input[fieldName], select[fieldName]');
+                var inputs = $('input[fieldName], select[fieldName], select[id]');
                 $.each(inputs, function (index, input) {
                     var propertyName = $(this).attr('fieldName');
                     var value = res[propertyName];
 
-                    //for combobox
+                    //for customer group combobox
                     if ($(this).attr('id') == 'cbxCustomerGroup') {
                         var propValueName = $(this).attr('fieldValue');
                         value = res[propValueName];
                         $(this).val(value);
                     }
+                    //for postion combobox
                     else if ($(this).attr('id') == 'cbxPosition') {
                         var propValueName = $(this).attr('fieldValue');
                         value = res[propValueName];
                         $(this).val(value);
                     }
+                    //for gender combobox
                     else if ($(this).attr('id') == 'cbxGender') {
                         var propValueName = $(this).attr('fieldValue');
                         value = res[propValueName];
                         $(this).val(value);
                     }
+                    //for work status combobox
                     else if ($(this).attr('id') == 'cbxWorkStatus') {
                         var propValueName = $(this).attr('fieldValue');
                         value = res[propValueName];
                         $(this).val(value);
                     }
+                    //for department combobox
                     else if ($(this).attr('id') == 'cbxDepartment') {
                         var propValueName = $(this).attr('fieldValue');
                         value = res[propValueName];
                         $(this).val(value);
-                    }
-                    else if ($(this).attr('id') == 'txtBaseSalary') {
-                        $(this).val(formatMoney(value));
                     }
                     //for input date type
                     else if ($(this).attr('type') == 'date') {
