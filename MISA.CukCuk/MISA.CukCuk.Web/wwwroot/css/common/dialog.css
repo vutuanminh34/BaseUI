@@ -24,14 +24,16 @@
 }
 
 .dialog-detail .dialog-content {
-    position: absolute;
+    position: fixed;
     width: 700px;
-    height: 555px;
+    height: 556px;
+    top: 50%;
+    left: 50%;
+    margin-top: -278px;
+    margin-left: -350px;
     background-color: #FFFFFF;
     z-index: 9999;
     border-radius: 5px;
-    top: calc(100% + 100px);
-    left: calc(50% - 400px);
 }
 
     .dialog-detail .dialog-content .dialog-header {
@@ -79,7 +81,7 @@
         position: absolute;
         top: 50px;
     }
-
+    
         .dialog-detail .dialog-content .dialog-body .head-body .head-body-left .dialog-avatar {
             border: 1px solid #ccc;
             width: 180px;
@@ -116,11 +118,12 @@
         position: absolute;
         top: 290px;
     }
+
         .dialog-detail .dialog-content .dialog-body .foot-body .foot-right {
             margin-left: 16px;
             float: left;
         }
-        
+
         .dialog-detail .dialog-content .dialog-body .foot-body .foot-left {
             float: left;
         }
@@ -128,13 +131,15 @@
         .dialog-detail .dialog-content .dialog-body .foot-body .foot-bottom {
             float: left;
         }
-        .dialog-detail .dialog-content .dialog-body .foot-body .foot-bottom input {
-            width: 600px;
-        }
+
+            .dialog-detail .dialog-content .dialog-body .foot-body .foot-bottom input {
+                width: 600px;
+            }
 
         .dialog-detail .dialog-content .dialog-body .foot-body .foot-left input {
             width: 380px;
         }
+
     .dialog-detail .dialog-content .dialog-footer {
         padding: 12px 24px 22px 24px;
         width: calc(100% - 48px);
@@ -144,7 +149,14 @@
         border-radius: 5px;
         top: 492px;
     }
+
         .dialog-detail .dialog-content .dialog-footer button {
             float: right;
             margin-right: 16px;
         }
+
+.title-body-dialog {
+    margin-top: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}

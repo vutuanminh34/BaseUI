@@ -34,3 +34,15 @@ C:\Users\Minh\Desktop\New folder\BaseUI\MISA.CukCuk\MISA.Infrastructure\obj\Debu
 C:\Users\Minh\Desktop\New folder\BaseUI\MISA.CukCuk\MISA.Infrastructure\obj\Debug\netcoreapp3.1\MISA.Infrastructure.csproj.CopyComplete
 C:\Users\Minh\Desktop\New folder\BaseUI\MISA.CukCuk\MISA.Infrastructure\obj\Debug\netcoreapp3.1\MISA.Infrastructure.dll
 C:\Users\Minh\Desktop\New folder\BaseUI\MISA.CukCuk\MISA.Infrastructure\obj\Debug\netcoreapp3.1\MISA.Infrastructure.pdb
+C:\Users\vtminh\Desktop\New folder (3)\BaseUI\MISA.CukCuk\MISA.Infrastructure\bin\Debug\netcoreapp3.1\MISA.Infrastructure.deps.json
+C:\Users\vtminh\Desktop\New folder (3)\BaseUI\MISA.CukCuk\MISA.Infrastructure\bin\Debug\netcoreapp3.1\MISA.Infrastructure.dll
+C:\Users\vtminh\Desktop\New folder (3)\BaseUI\MISA.CukCuk\MISA.Infrastructure\bin\Debug\netcoreapp3.1\MISA.Infrastructure.pdb
+C:\Users\vtminh\Desktop\New folder (3)\BaseUI\MISA.CukCuk\MISA.Infrastructure\bin\Debug\netcoreapp3.1\MISA.ApplicationCore.dll
+C:\Users\vtminh\Desktop\New folder (3)\BaseUI\MISA.CukCuk\MISA.Infrastructure\bin\Debug\netcoreapp3.1\MISA.ApplicationCore.pdb
+C:\Users\vtminh\Desktop\New folder (3)\BaseUI\MISA.CukCuk\MISA.Infrastructure\obj\Debug\netcoreapp3.1\MISA.Infrastructure.csprojAssemblyReference.cache
+C:\Users\vtminh\Desktop\New folder (3)\BaseUI\MISA.CukCuk\MISA.Infrastructure\obj\Debug\netcoreapp3.1\MISA.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\vtminh\Desktop\New folder (3)\BaseUI\MISA.CukCuk\MISA.Infrastructure\obj\Debug\netcoreapp3.1\MISA.Infrastructure.AssemblyInfo.cs
+C:\Users\vtminh\Desktop\New folder (3)\BaseUI\MISA.CukCuk\MISA.Infrastructure\obj\Debug\netcoreapp3.1\MISA.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\vtminh\Desktop\New folder (3)\BaseUI\MISA.CukCuk\MISA.Infrastructure\obj\Debug\netcoreapp3.1\MISA.Infrastructure.csproj.CopyComplete
+C:\Users\vtminh\Desktop\New folder (3)\BaseUI\MISA.CukCuk\MISA.Infrastructure\obj\Debug\netcoreapp3.1\MISA.Infrastructure.dll
+C:\Users\vtminh\Desktop\New folder (3)\BaseUI\MISA.CukCuk\MISA.Infrastructure\obj\Debug\netcoreapp3.1\MISA.Infrastructure.pdb

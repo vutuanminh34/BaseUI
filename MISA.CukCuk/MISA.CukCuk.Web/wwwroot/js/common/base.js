@@ -95,6 +95,29 @@
                         value = res[propValueName];
                         $(this).val(value);
                     }
+                    else if ($(this).attr('id') == 'cbxPosition') {
+                        var propValueName = $(this).attr('fieldValue');
+                        value = res[propValueName];
+                        $(this).val(value);
+                    }
+                    else if ($(this).attr('id') == 'cbxGender') {
+                        var propValueName = $(this).attr('fieldValue');
+                        value = res[propValueName];
+                        $(this).val(value);
+                    }
+                    else if ($(this).attr('id') == 'cbxWorkStatus') {
+                        var propValueName = $(this).attr('fieldValue');
+                        value = res[propValueName];
+                        $(this).val(value);
+                    }
+                    else if ($(this).attr('id') == 'cbxDepartment') {
+                        var propValueName = $(this).attr('fieldValue');
+                        value = res[propValueName];
+                        $(this).val(value);
+                    }
+                    else if ($(this).attr('id') == 'txtBaseSalary') {
+                        $(this).val(formatMoney(value));
+                    }
                     //for input date type
                     else if ($(this).attr('type') == 'date') {
                         $(this).val(formatStringDate(value));
@@ -162,10 +185,39 @@
     loadData() {
         var me = this;
         try {
+            $('.loading').show();
+            //load data for combobox
+            var selects = $('select[fieldName]');
+            selects.empty();
+            $.each(selects, function (index, select) {
+                //get value of group customers
+                var api = $(select).attr('api');
+                var fieldName = $(select).attr('fieldName');
+                var fieldValue = $(select).attr('fieldValue');
+                $('.loading').show();
+                $.ajax({
+                    url: me.host + api,
+                    method: "GET",
+                    async: true
+                }).done(function (res) {
+                    if (res) {
+                        console.log(res);
+                        $.each(res, function (index, obj) {
+                            var option = $(`<option value="${obj[fieldValue]}">${obj[fieldName]}</option>`);
+                            console.log(select);
+                            $(select).append(option);
+                            console.log(option);
+                        })
+                    }
+                    $('.loading').hide();
+                }).fail(function (res) {
+                    $('.loading').hide();
+                })
+            })
+
             $('table tbody').empty();
             //get value for column
             var columns = $('table thead th');
-            $('.loading').show();
             //get data
             $.ajax({
                 url: me.host + me.apiRouter,
@@ -174,25 +226,30 @@
                 var data = res;
                 $.each(data, function (index, obj) {
                     var tr = $(`<tr></tr>`);
-                    $(tr).data('recordId', obj.CustomerId);
+                    $(tr).data('recordId', obj.EmployeeId);
                     //get value use for mapping with the corresponding columns
                     $.each(columns, function (index, th) {
                         var td = $(`<td></td>`);
+                        
                         var fieldName = $(th).attr('fieldName');
                         var value = obj[fieldName];
                         var formatType = $(th).attr('formatType');
                         switch (formatType) {
                             case "ddmmyyyy":
                                 td.addClass("text-align-center");
+                                $(th).addClass("text-align-center");
                                 value = formatDate(value);
                                 break;
                             case "Money":
                                 td.addClass("text-align-right");
+                                $(th).addClass("text-align-right");
                                 value = formatMoney(value);
                                 break;
                             case "Gender":
                                 value = formatGender(value);
                                 break;
+                            case "WorkStatus":
+                                value = formatWorkStatus(value);
                             default:
                                 break;
                         }

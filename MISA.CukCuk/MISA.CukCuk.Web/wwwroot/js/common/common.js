@@ -63,3 +63,17 @@ function formatGender(gender) {
     else
         return "Khác";
 }
+
+/**
+ * function used to format work status
+ * @param {Number} workStatus
+ * createdBy: vtminh(15/1/2021)
+ */
+function formatWorkStatus(workStatus) {
+    if (workStatus == 1)
+        return "Đang làm việc";
+    else if (workStatus == 0)
+        return "Đã nghỉ việc";
+    else
+        return "Đang thử việc";
+}

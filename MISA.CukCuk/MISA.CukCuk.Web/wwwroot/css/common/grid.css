@@ -3,7 +3,7 @@
     overflow: auto;
     padding-left: 16px;
     padding-right: 16px;
-    text-align: center;
+    text-align: left;
 }
 
     .grid::-webkit-scrollbar {
@@ -23,7 +23,7 @@
         .grid .table-grid thead tr th {
             height: 40px;
             position: sticky;
-            text-align: center;
+            text-align: l;
             padding-left: 16px;
             padding-right: 16px;
             top: 0;
