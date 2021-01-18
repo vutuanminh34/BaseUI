@@ -2,15 +2,23 @@
     constructor() {
         this.host = "";
         this.apiRouter = null;
+        this.subApi = "";
         this.objectName = null;
         this.setApiRouter();
+        this.setSubApi();
         this.loadData();
+        this.loadCombobox();
         this.initEvents();
     }
 
     //set api router
     setApiRouter() {
 
+    }
+
+    //set sub api
+    setSubApi() {
+        
     }
 
     initEvents() {
@@ -90,14 +98,31 @@
                     var propertyName = $(this).attr('fieldName');
                     var value = res[propertyName];
 
+                   /* var select = $(this).attr('id');
+                    switch (select) {
+                        case 'cbxCustomerGroup':
+                        case 'cbxPosition':
+                        case 'cbxDepartment':
+                        case 'cbxGender':
+                        case 'cbxWorkStatus':
+                            var propValueName = $(this).attr('fieldValue');
+                            value = res[propValueName];
+                            $(this).val(value);
+                            break;
+                        default:
+                            $(this).val(value);
+                            break;
+                    }*/
+
+
                     //for customer group combobox
-                    if ($(this).attr('id') == 'cbxCustomerGroup') {
+                    if ($(this).attr('id') == 'cbxPosition') {
                         var propValueName = $(this).attr('fieldValue');
                         value = res[propValueName];
                         $(this).val(value);
                     }
                     //for postion combobox
-                    else if ($(this).attr('id') == 'cbxPosition') {
+                    else if ($(this).attr('id') == 'cbxCustomerGroup') {
                         var propValueName = $(this).attr('fieldValue');
                         value = res[propValueName];
                         $(this).val(value);
@@ -138,6 +163,8 @@
                     }
 
                 })
+
+
             }).fail(function (res) {
 
             })
@@ -188,41 +215,15 @@
         var me = this;
         try {
             $('.loading').show();
-            //load data for combobox
-            var selects = $('select[fieldName]');
-            selects.empty();
-            $.each(selects, function (index, select) {
-                //get value of group customers
-                var api = $(select).attr('api');
-                var fieldName = $(select).attr('fieldName');
-                var fieldValue = $(select).attr('fieldValue');
-                $('.loading').show();
-                $.ajax({
-                    url: me.host + api,
-                    method: "GET",
-                    async: true
-                }).done(function (res) {
-                    if (res) {
-                        console.log(res);
-                        $.each(res, function (index, obj) {
-                            var option = $(`<option value="${obj[fieldValue]}">${obj[fieldName]}</option>`);
-                            console.log(select);
-                            $(select).append(option);
-                            console.log(option);
-                        })
-                    }
-                    $('.loading').hide();
-                }).fail(function (res) {
-                    $('.loading').hide();
-                })
-            })
+            
 
             $('table tbody').empty();
             //get value for column
             var columns = $('table thead th');
             //get data
+            
             $.ajax({
-                url: me.host + me.apiRouter,
+                url: me.host + me.apiRouter + "/filter?inputValue" + $('#txtSearchEmployee').val() + "=&departmentId=" + $('select#cbxFilter1 option:selected').val() + "&positionId=" + $('select#cbxFilter1 option:selected').val() + "",
                 method: "GET",
             }).done(function (res) {
                 var data = res;
@@ -236,7 +237,7 @@
                     //get value use for mapping with the corresponding columns
                     $.each(columns, function (index, th) {
                         var td = $(`<td></td>`);
-                        
+
                         var fieldName = $(th).attr('fieldName');
                         var value = obj[fieldName];
                         var formatType = $(th).attr('formatType');
@@ -275,6 +276,38 @@
 
 
 
+    }
+
+    loadCombobox() {
+        var me = this;
+        //load data for combobox
+        var selects = $('select[fieldName]');
+        selects.empty();
+        $.each(selects, function (index, select) {
+            //get value of group customers
+            var api = $(select).attr('api');
+            var fieldName = $(select).attr('fieldName');
+            var fieldValue = $(select).attr('fieldValue');
+            $('.loading').show();
+            $.ajax({
+                url: me.host + api,
+                method: "GET",
+                async: true
+            }).done(function (res) {
+                if (res) {
+                    console.log(res);
+                    $.each(res, function (index, obj) {
+                        var option = $(`<option value="${obj[fieldValue]}">${obj[fieldName]}</option>`);
+                        console.log(select);
+                        $(select).append(option);
+                        console.log(option);
+                    })
+                }
+                $('.loading').hide();
+            }).fail(function (res) {
+                $('.loading').hide();
+            })
+        })
     }
 
     /**

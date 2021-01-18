@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Minh\\Desktop\\BaseUI\\MISA.CukCuk\\MISA.ApplicationCore\\MISA.ApplicationCore.csproj": {}
+    "C:\\Users\\vtminh\\Desktop\\CukCuk\\BaseUI\\MISA.CukCuk\\MISA.ApplicationCore\\MISA.ApplicationCore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Minh\\Desktop\\BaseUI\\MISA.CukCuk\\MISA.ApplicationCore\\MISA.ApplicationCore.csproj": {
+    "C:\\Users\\vtminh\\Desktop\\CukCuk\\BaseUI\\MISA.CukCuk\\MISA.ApplicationCore\\MISA.ApplicationCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Minh\\Desktop\\BaseUI\\MISA.CukCuk\\MISA.ApplicationCore\\MISA.ApplicationCore.csproj",
+        "projectUniqueName": "C:\\Users\\vtminh\\Desktop\\CukCuk\\BaseUI\\MISA.CukCuk\\MISA.ApplicationCore\\MISA.ApplicationCore.csproj",
         "projectName": "MISA.ApplicationCore",
-        "projectPath": "C:\\Users\\Minh\\Desktop\\BaseUI\\MISA.CukCuk\\MISA.ApplicationCore\\MISA.ApplicationCore.csproj",
-        "packagesPath": "C:\\Users\\Minh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Minh\\Desktop\\BaseUI\\MISA.CukCuk\\MISA.ApplicationCore\\obj\\",
+        "projectPath": "C:\\Users\\vtminh\\Desktop\\CukCuk\\BaseUI\\MISA.CukCuk\\MISA.ApplicationCore\\MISA.ApplicationCore.csproj",
+        "packagesPath": "C:\\Users\\vtminh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\vtminh\\Desktop\\CukCuk\\BaseUI\\MISA.CukCuk\\MISA.ApplicationCore\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Minh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\vtminh\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

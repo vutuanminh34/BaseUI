@@ -22,6 +22,10 @@ namespace MISA.ApplicationCore.Services
             return true;
         }
 
+        public List<Employee> FilterEmployee(string inputValue, Guid? departmentId, Guid? positionId)
+        {
+            return _employeeRepository.FilterEmployee(inputValue, departmentId, positionId);
+        }
         #endregion
     }
 }

@@ -77,15 +77,15 @@
         </div>
         <div class="filter-bar">
             <div class="filter-left">
-                <input class="icon-search input-search" type="text" style="width: 270px" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
-                <select id="cbxDepartment" fieldName="DepartmentName" fieldValue="DepartmentId" api="/api/v1/departments" style="margin-left: 10px">
+                <input id="txtSearchEmployee" class="icon-search input-search" type="text" style="width: 270px" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
+                <select id="cbxFilter1" fieldName="DepartmentName" fieldValue="DepartmentId" api="/api/v1/departments" style="margin-left: 10px">
                     <!--<option value="35e773ea-5d44-2dda-26a8-6d513e380bde">Tất cả phòng ban</option>
                     <option value="3f8e6896-4c7d-15f5-a018-75d8bd200d7c">Văn phòng tổng công ty</option>
                     <option value="45ac3d26-18f2-18a9-3031-644313fbb055">Phòng đào tạo công nghệ</option>
                     <option value="78aafe4a-67a7-2076-3bf3-eb0223d0a4f7">Phòng nhân sự</option>
                     <option value="7c4f14d8-66fb-14ae-198f-6354f958f4c0">Phòng hành chính</option>-->
                 </select>
-                <select id="cbxPosition" fieldName="PositionName" fieldValue="PositionId" api="/api/v1/positions" style="margin-left: 10px">
+                <select id="cbxFilter2" fieldName="PositionName" fieldValue="PositionId" api="/api/v1/positions" style="margin-left: 10px">
                     <!--<option value="27f91d6c-14b1-6c74-92ef-c9d5c2d91e91">Tất cả vị trí</option>
                     <option value="30007451-29ff-4fe4-3707-70859f4ff30d">Giám đốc</option>
                     <option value="34e2b4cc-3758-293d-7aa4-4b24de418577">Phó giám đốc</option>

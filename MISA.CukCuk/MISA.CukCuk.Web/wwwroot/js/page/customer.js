@@ -9,10 +9,10 @@
 class CustomerJS extends BaseJS {
     constructor() {
         super();
+        this.objectName = "Customer";
     }
     setApiRouter() {
         this.apiRouter = "/api/v1/customers";
-        this.objectName = "Customer";
     }
 
 }

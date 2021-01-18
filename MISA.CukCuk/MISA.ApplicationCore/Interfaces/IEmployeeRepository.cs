@@ -11,6 +11,14 @@ namespace MISA.ApplicationCore.Interfaces
     /// createdBy: vtminh (8/1/2021)
     public interface IEmployeeRepository : IBaseRepository<Employee>
     {
-        
+        /// <summary>
+        /// Filter employee by multiple conditions
+        /// </summary>
+        /// <param name="inputValue">employeeCode, fullName, phoneNumber</param>
+        /// <param name="departmentId"></param>
+        /// <param name="positionId"></param>
+        /// <returns>List employee</returns>
+        /// createdBy: vtminh(18/1/2021)
+        List<Employee> FilterEmployee(string inputValue, Guid? departmentId, Guid? positionId);
     }
 }
