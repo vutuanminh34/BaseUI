@@ -16,15 +16,15 @@ class EmployeeJS extends BaseJS {
         var me = this;
         super.initEvents();
         $('#txtSearchEmployee, #cbxFilter1, #cbxFilter2').blur(function () {
-            me.loadData();
+            me.loadFilter();
         })
     }
 
     setSubApi() {
-        /*let inputValue = ;
-        let departmentId = ;
-        let positionId = ;
-        this.subApi = "/filter?inputValue" + $('#txtSearchEmployee').val() + "=&departmentId=" + $('select#cbxFilter1 option:selected').val() + "&positionId=" + $('select#cbxFilter1 option:selected').val() + "";*/
+        /*let inputValue = $('#txtSearchEmployee').val();
+        let departmentId = $('select#cbxFilter1 option:selected').val();
+        let positionId = $('select#cbxFilter2 option:selected').val();
+        this.subApi = "/filter?inputValue" + inputValue + "=&departmentId=" + departmentId + "&positionId=" + positionId + "";*/
     }
 
     setApiRouter() {

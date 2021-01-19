@@ -8,6 +8,7 @@
         this.setSubApi();
         this.loadData();
         this.loadCombobox();
+        this.loadFilter();
         this.initEvents();
     }
 
@@ -51,35 +52,6 @@
 
         //Show detail infor when double click on object in table(dynamic event definitions)
         $('table tbody').on('dblclick', 'tr', function () {
-            //load data for combobox
-            var selects = $('select[fieldName]');
-            selects.empty();
-            $.each(selects, function (index, select) {
-                //get value of group customers
-                var api = $(select).attr('api');
-                var fieldName = $(select).attr('fieldName');
-                var fieldValue = $(select).attr('fieldValue');
-                $('.loading').show();
-                $.ajax({
-                    url: me.host + api,
-                    method: "GET",
-                    async: true
-                }).done(function (res) {
-                    if (res) {
-                        console.log(res);
-                        $.each(res, function (index, obj) {
-                            var option = $(`<option value="${obj[fieldValue]}">${obj[fieldName]}</option>`);
-                            console.log(select);
-                            $(select).append(option);
-                            console.log(option);
-                        })
-                    }
-                    $('.loading').hide();
-                }).fail(function (res) {
-                    $('.loading').hide();
-                })
-            })
-
             me.FormMode = 'Edit';
             //Get primary key from table
             var recordId = $(this).data('recordId');
@@ -208,14 +180,14 @@
         })
     }
     /**
-    * load data
+    * Load data
     * createdBy: minhvt (28/12/2020)
     * */
     loadData() {
         var me = this;
         try {
             $('.loading').show();
-            
+
 
             $('table tbody').empty();
             //get value for column
@@ -223,7 +195,7 @@
             //get data
             
             $.ajax({
-                url: me.host + me.apiRouter + "/filter?inputValue" + $('#txtSearchEmployee').val() + "=&departmentId=" + $('select#cbxFilter1 option:selected').val() + "&positionId=" + $('select#cbxFilter1 option:selected').val() + "",
+                url: me.host + me.apiRouter,
                 method: "GET",
             }).done(function (res) {
                 var data = res;
@@ -278,11 +250,13 @@
 
     }
 
+    /**
+     * load combobox
+     * */
     loadCombobox() {
         var me = this;
         //load data for combobox
         var selects = $('select[fieldName]');
-        selects.empty();
         $.each(selects, function (index, select) {
             //get value of group customers
             var api = $(select).attr('api');
@@ -311,7 +285,69 @@
     }
 
     /**
-     * Function excute event when click "Thêm mới khách hàng" button 
+     * Filter data
+     * createdBy: vtminh (19/1/1021)
+     * */
+    loadFilter() {
+        var me = this;
+
+        $('table tbody').empty();
+        //get value for column
+        var columns = $('table thead th');
+        //get data
+        /*
+        var inputValue = $('#txtSearchEmployee').val();
+        var departmentId = $('select#cbxFilter1 option:selected').val();
+        var positionId = $('select#cbxFilter2 option:selected').val();
+        me.subApi = "/filter?inputValue=" + inputValue + "&DepartmentId=" + departmentId + "&PositionId=" + positionId + "";*/
+        $.ajax({
+            url: me.host + me.apiRouter + me.subApi,
+            method: "GET",
+        }).done(function (res) {
+            var data = res;
+            $.each(data, function (index, obj) {
+                var check = me.objectName;
+                var tr = $(`<tr></tr>`);
+                if (check == "Customer")
+                    $(tr).data('recordId', obj.CustomerId);
+                else
+                    $(tr).data('recordId', obj.EmployeeId);
+                //get value use for mapping with the corresponding columns
+                $.each(columns, function (index, th) {
+                    var td = $(`<td></td>`);
+
+                    var fieldName = $(th).attr('fieldName');
+                    var value = obj[fieldName];
+                    var formatType = $(th).attr('formatType');
+                    switch (formatType) {
+                        case "ddmmyyyy":
+                            td.addClass("text-align-center");
+                            $(th).addClass("text-align-center");
+                            value = formatDate(value);
+                            break;
+                        case "Money":
+                            td.addClass("text-align-right");
+                            $(th).addClass("text-align-right");
+                            value = formatMoney(value);
+                            break;
+                        case "Gender":
+                            value = formatGender(value);
+                            break;
+                        case "WorkStatus":
+                            value = formatWorkStatus(value);
+                        default:
+                            break;
+                    }
+                    td.append(value);
+                    $(tr).append(td);
+                })
+                $('table tbody').append(tr);
+            })
+        }).fail(function (res) {
+        })
+    }
+
+     /* Function excute event when click on "Thêm mới khách hàng" button 
      * createdBy: minhvt (4/1/2021)
      * */
     btnAddOnClick() {
@@ -323,50 +359,32 @@
             $('.dialog-detail').removeClass('hide-dialog');
             $('input[type !="radio"]').val(null);
             $('input[type="radio"]').prop('checked', false);
-            //load data for combobox
-            var selects = $('select[fieldName]');
-            selects.empty();
-            $.each(selects, function (index, select) {
-                //get value of group customers
-                var api = $(select).attr('api');
-                var fieldName = $(select).attr('fieldName');
-                var fieldValue = $(select).attr('fieldValue');
-                $('.loading').show();
-                $.ajax({
-                    url: me.host + api,
-                    method: "GET",
-                    async: true
-                }).done(function (res) {
-                    if (res) {
-                        console.log(res);
-                        $.each(res, function (index, obj) {
-                            var option = $(`<option value="${obj[fieldValue]}">${obj[fieldName]}</option>`);
-                            console.log(select);
-                            $(select).append(option);
-                            console.log(option);
-                        })
-                    }
-                    $('.loading').hide();
-                }).fail(function (res) {
-                    $('.loading').hide();
-                })
-            })
+            
         } catch (e) {
             console.log(e);
         }
     }
 
     /**
-     * Function excute event when click "Lưu" button
+     * Function used to process event double click on row
+     * */
+    doubleClick() {
+        try {
+            var me = this;
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    /**
+     * Function excute event when click on "Lưu" button
      * createdBy: minhvt (4/1/2021)
      * */
     btnSaveOnClick() {
         var me = this;
         //validate data
         var inputValidates = $('input[required], input[type="email"]');
-        $.each(inputValidates, function (index, input) {
-            $(input).trigger('blur');
-        });
         var inputNotValids = $('input[validate="false"]');
         if (inputNotValids && inputNotValids.length > 0) {
             alert('Dữ liệu không hợp lệ vui lòng kiểm tra lại!');
@@ -423,6 +441,10 @@
         })
     }
 
+    /**
+     * Function used to process event when click on "Xóa" button
+     * createdBy: minhvt (8/1/2021)
+     * */
     btnDeleteOnClick() {
         var me = this;
         try {
