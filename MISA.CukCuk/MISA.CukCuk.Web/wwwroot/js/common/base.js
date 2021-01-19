@@ -5,7 +5,6 @@
         this.subApi = "";
         this.objectName = null;
         this.setApiRouter();
-        this.setSubApi();
         this.loadData();
         this.loadCombobox();
         this.loadFilter();
@@ -15,11 +14,6 @@
     //set api router
     setApiRouter() {
 
-    }
-
-    //set sub api
-    setSubApi() {
-        
     }
 
     initEvents() {
@@ -32,6 +26,7 @@
         $('#button-refresh').click(function () {
             alert('Refresh data complete!');
             this.loadData();
+            $('#txtSearchEmployee').val('');
         }.bind(this));
 
         //Hide form dialog when click button "Huy" and "X"
@@ -295,11 +290,6 @@
         //get value for column
         var columns = $('table thead th');
         //get data
-        /*
-        var inputValue = $('#txtSearchEmployee').val();
-        var departmentId = $('select#cbxFilter1 option:selected').val();
-        var positionId = $('select#cbxFilter2 option:selected').val();
-        me.subApi = "/filter?inputValue=" + inputValue + "&DepartmentId=" + departmentId + "&PositionId=" + positionId + "";*/
         $.ajax({
             url: me.host + me.apiRouter + me.subApi,
             method: "GET",
@@ -359,7 +349,9 @@
             $('.dialog-detail').removeClass('hide-dialog');
             $('input[type !="radio"]').val(null);
             $('input[type="radio"]').prop('checked', false);
-            
+            var selects = $('select[fieldName]');
+            selects.empty();
+            me.loadCombobox();
         } catch (e) {
             console.log(e);
         }
