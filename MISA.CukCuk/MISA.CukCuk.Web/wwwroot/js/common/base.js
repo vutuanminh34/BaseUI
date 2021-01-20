@@ -26,6 +26,7 @@
         $('#button-refresh').click(function () {
             alert('Refresh data complete!');
             this.loadData();
+            me.subApi = "";
             $('#txtSearchEmployee').val('');
         }.bind(this));
 
@@ -182,13 +183,10 @@
         var me = this;
         try {
             $('.loading').show();
-
-
             $('table tbody').empty();
             //get value for column
             var columns = $('table thead th');
             //get data
-            
             $.ajax({
                 url: me.host + me.apiRouter,
                 method: "GET",

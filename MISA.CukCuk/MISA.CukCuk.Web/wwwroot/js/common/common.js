@@ -94,4 +94,4 @@ var delayFunction = (function () {
             ticker = setTimeout(callback.bind(jsObject), ms)
         }
     }
-}());
+});

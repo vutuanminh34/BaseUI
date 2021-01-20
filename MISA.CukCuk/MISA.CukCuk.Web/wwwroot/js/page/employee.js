@@ -15,19 +15,24 @@ class EmployeeJS extends BaseJS {
     initEvents() {
         var me = this;
         super.initEvents();
-        $('#txtSearchEmployee, .cbxFilter1, .cbxFilter2').on('input', function () {
-            delayFunction(me.loadFilter, 500, me);
+        $('#txtSearchEmployee, .cbxFilter1, .cbxFilter2').on('input', function (event) {
+            me.loadFilter();
         })
+        
     }
 
     loadFilter() {
         var me = this;
         super.loadFilter();
-        let inputValue = $('#txtSearchEmployee').val();
-        let departmentId = $('select.cbxFilter1 option:selected').val();
-        let positionId = $('select.cbxFilter2 option:selected').val();
-        me.subApi = "/filter?inputValue=" + inputValue + "&departmentId=" + departmentId + "&positionId=" + positionId + "";
+        var inputValue = $('#txtSearchEmployee').val();
+        var departmentId = $('select.cbxFilter1 option:selected').val();
+        var positionId = $('select.cbxFilter2 option:selected').val();
+        if (inputValue != null && departmentId != null && positionId != null) {
+            me.subApi = "/filter?inputValue=" + inputValue + "&departmentId=" + departmentId + "&positionId=" + positionId + "";
+        }
+        
     }
+
 
     setApiRouter() {
         this.apiRouter = "/api/v1/employees";
