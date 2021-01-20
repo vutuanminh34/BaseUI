@@ -67,7 +67,7 @@ namespace MISA.CukCuk.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseMiddleware<ErrorHandlingMiddleware>();
+            /*app.UseMiddleware<ErrorHandlingMiddleware>();*/
             app.UseRouting();
             app.UseCors(option => option.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader());
             app.UseAuthorization();

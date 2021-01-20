@@ -374,7 +374,6 @@
     btnSaveOnClick() {
         var me = this;
         //validate data
-        var inputValidates = $('input[required], input[type="email"]');
         var inputNotValids = $('input[validate="false"]');
         if (inputNotValids && inputNotValids.length > 0) {
             alert('Dữ liệu không hợp lệ vui lòng kiểm tra lại!');
@@ -427,7 +426,8 @@
             me.loadData();
 
         }).fail(function (res) {
-
+            var msg = res.responseText;
+            alert(msg);
         })
     }
 

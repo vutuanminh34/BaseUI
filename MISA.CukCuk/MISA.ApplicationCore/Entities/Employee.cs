@@ -17,6 +17,7 @@ namespace MISA.ApplicationCore.Entities
         /// Mã nhân viên
         /// </summary>
         [Required]
+        [CheckDuplicate]
         [DisplayName("mã nhân viên")]
         [MaxLength(20, "Mã nhân viên không vượt quá 20 ký tự!")]
         public string EmployeeCode { get; set; }
@@ -41,6 +42,7 @@ namespace MISA.ApplicationCore.Entities
         /// <summary>
         /// Số chứng minh thư
         /// </summary>
+        [Required]
         [CheckDuplicate]
         [DisplayName("số chứng minh thư")]
         public string IdentificationNumber { get; set; }
@@ -59,6 +61,7 @@ namespace MISA.ApplicationCore.Entities
         /// Địa chỉ email
         /// </summary>
         [Required]
+        [CheckDuplicate]
         public string Email { get; set; }
 
         /// <summary>

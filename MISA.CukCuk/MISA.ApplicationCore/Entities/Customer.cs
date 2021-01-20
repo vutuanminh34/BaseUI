@@ -33,6 +33,7 @@ namespace MISA.ApplicationCore.Entities
         /// Mã khách hàng
         /// </summary>
         [Required]
+        [CheckDuplicate]
         [DisplayName("mã khách hàng")]
         [MaxLength(20,"Mã khách hàng không vượt quá 20 ký tự!")]
         public string CustomerCode { get; set; }

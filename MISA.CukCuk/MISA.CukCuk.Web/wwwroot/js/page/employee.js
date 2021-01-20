@@ -18,7 +18,7 @@ class EmployeeJS extends BaseJS {
         $('#txtSearchEmployee, .cbxFilter1, .cbxFilter2').on('input', function (event) {
             me.loadFilter();
         })
-        
+
     }
 
     loadFilter() {
@@ -26,11 +26,15 @@ class EmployeeJS extends BaseJS {
         super.loadFilter();
         var inputValue = $('#txtSearchEmployee').val();
         var departmentId = $('select.cbxFilter1 option:selected').val();
+        if (departmentId == undefined)
+            departmentId = '';
         var positionId = $('select.cbxFilter2 option:selected').val();
-        if (inputValue != null && departmentId != null && positionId != null) {
-            me.subApi = "/filter?inputValue=" + inputValue + "&departmentId=" + departmentId + "&positionId=" + positionId + "";
-        }
-        
+        if (positionId == undefined)
+            positionId = '';
+
+        me.subApi = "/filter?inputValue=" + inputValue + "&departmentId=" + departmentId + "&positionId=" + positionId + "";
+
+
     }
 
 

@@ -82,6 +82,10 @@ function formatWorkStatus(workStatus) {
         return "";
 }
 
+/**
+ * function used to delay load
+ * createdBy: vtminh(19/1/2021)
+ * */
 var delayFunction = (function () {
     var ticker = null;
     return function (callback, ms, jsObject) {
