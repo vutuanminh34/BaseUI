@@ -426,8 +426,8 @@
             me.loadData();
 
         }).fail(function (res) {
-            var msg = res.responseText;
-            alert(msg);
+            var msg = JSON.parse(res.responseText);
+            alert(msg.Data);
         })
     }
 
