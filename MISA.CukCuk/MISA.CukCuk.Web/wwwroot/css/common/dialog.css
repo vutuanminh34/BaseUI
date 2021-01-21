@@ -39,7 +39,6 @@
     .dialog-detail .dialog-content .dialog-header {
         display: flex;
         padding: 24px 24px 0px 24px;
-        cursor: move;
     }
 
         .dialog-detail .dialog-content .dialog-header .dialog-header-title {

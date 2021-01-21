@@ -102,8 +102,9 @@
                         value = res[propValueName];
                         $(this).val(value);
                     }
+                    //for base salary input
                     else if ($(this).attr('id') == 'txtBaseSalary') {
-                        $(this).val(value).simpleMoneyFormat();
+                        $(this).val(formatMoney(value));
                     }
                     //for input date type
                     else if ($(this).attr('type') == 'date') {
@@ -283,9 +284,7 @@
             $('input[type !="radio"]').val(null);
             $('input[type="radio"]').prop('checked', false);
             $(`#txt${me.objectName}Code`).focus();
-            var selects = $('select[fieldName]');
-            selects.empty();
-            me.loadCombobox();
+            $("option:selected").prop("selected", false);
             //Getting and auto binding objectCode
             $.ajax({
                 url: me.host + me.apiRouter + `/maxcode`,
@@ -329,10 +328,14 @@
             } else {
                 entity[propertyName] = value;
             }
-
+            //Get value from select
             if (this.tagName == "SELECT") {
                 var propertyName = $(this).attr('fieldValue');
                 entity[propertyName] = value;
+            }
+            //Replace string for input
+            if ($(this).attr('id') == 'txtBaseSalary') {
+                entity[propertyName] = value.split(".").join("");
             }
         })
         var method = "POST";

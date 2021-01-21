@@ -1,4 +1,7 @@
-﻿body{
+﻿@media all and (min-width: 1280px) {
+   
+}
+body{
     margin: 0;
     font-family: GoogleSans-Regular;
     font-size: 13px;

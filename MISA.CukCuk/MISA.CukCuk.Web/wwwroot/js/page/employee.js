@@ -19,7 +19,6 @@ class EmployeeJS extends BaseJS {
             me.setSubApi();
             me.loadData();
         })
-        $("#txtBaseSalary").simpleMoneyFormat();
     }
 
     setSubApi() {

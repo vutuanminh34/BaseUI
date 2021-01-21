@@ -22,3 +22,12 @@ input, select {
     border: 1px solid #BBBBBB;
     outline: none;
 }
+
+.base-input {
+    width: 175px;
+    height: 17px;
+}
+
+option:hover {
+    background-color: #019160;
+}

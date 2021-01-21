@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Misa</title>
     <link href="/css/common/common.css" rel="stylesheet" />
     <link href="/css/common/main.css" rel="stylesheet" />
@@ -56,7 +57,7 @@
         <div class="header-left">
             <select>
                 <option>Nhà hàng Biển Đông</option>
-                <option>Nhà hàng Biển Đông</option>
+                <option>Nhà hàng Đại Dương</option>
             </select>
         </div>
         <div class="header-right">
@@ -80,19 +81,9 @@
                 <input id="txtSearchEmployee" class="icon-search input-search" type="text" style="width: 270px; height: 17px;" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
                 <select class="cbxFilter1" fieldName="DepartmentName" fieldValue="DepartmentId" api="/api/v1/departments" style="margin-left: 10px">
                     <option value="" default="true">Tất cả phòng ban</option>
-                    <!--<option value="35e773ea-5d44-2dda-26a8-6d513e380bde">Tất cả phòng ban</option>
-                    <option value="3f8e6896-4c7d-15f5-a018-75d8bd200d7c">Văn phòng tổng công ty</option>
-                    <option value="45ac3d26-18f2-18a9-3031-644313fbb055">Phòng đào tạo công nghệ</option>
-                     <option value="78aafe4a-67a7-2076-3bf3-eb0223d0a4f7">Phòng nhân sự</option>
-                    <option value="7c4f14d8-66fb-14ae-198f-6354f958f4c0">Phòng hành chính</option>-->
                 </select>
                 <select class="cbxFilter2" fieldName="PositionName" fieldValue="PositionId" api="/api/v1/positions" style="margin-left: 10px">
                     <option value="" default="true">Tất cả vị trí</option>
-                    <!--<option value="27f91d6c-14b1-6c74-92ef-c9d5c2d91e91">Tất cả vị trí</option>
-                    <option value="30007451-29ff-4fe4-3707-70859f4ff30d">Giám đốc</option>
-                    <option value="34e2b4cc-3758-293d-7aa4-4b24de418577">Phó giám đốc</option>
-                    <option value="3e39129b-279f-623f-88ea-778aee59fea3">Trưởng phòng</option>
-                    <option value="6528b15d-6674-724f-79a4-4b24de418577">Nhân viên</option>-->
                 </select>
             </div>
             <div class="filter-right">
@@ -117,18 +108,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!--<tr>
-                        <td>KH01</td>
-                        <td>Trần Ngọc Lan</td>
-                        <td>Nữ</td>
-                        <td>16/6/1999</td>
-                        <td>Đặc biệt</td>
-                        <td>0983476234</td>
-                        <td>tranngoclan99@gmail.com</td>
-                        <td>99 Ngọc Lâm</td>
-                        <td>0đ</td>
-                        <td>201934598712465787</td>
-                    </tr>-->
+                    
                 </tbody>
             </table>
         </div>
@@ -175,56 +155,51 @@
                         <hr class="hr-group-label" />
                         <div>
                             <div>Mã nhân viên (<span class="red-color">*</span>)</div>
-                            <div class="space"><input id="txtEmployeeCode" class="input-required" fieldName="EmployeeCode" type="text" style="width: 175px;" required /></div>
+                            <div class="space"><input id="txtEmployeeCode" class="input-required base-input" tabindex="1" fieldName="EmployeeCode" type="text" required /></div>
                         </div>
                         <div class="down">
                             <div>Ngày sinh</div>
-                            <div class="space"><input id="dtDateOfBirth" fieldName="DateOfBirth" type="date" style="width: 175px; height: 17px; " /></div>
+                            <div class="space"><input id="dtDateOfBirth" class="base-input" tabindex="3" fieldName="DateOfBirth" type="date" /></div>
                         </div>
                         <div class="down">
                             <div>Số CMTND/Căn cước (<span class="red-color">*</span>)</div>
-                            <div class="space"><input id="txtIdentificationNumber" class="input-required" fieldName="IdentificationNumber" style="width: 175px;" type="text" required /></div>
+                            <div class="space"><input id="txtIdentificationNumber" class="input-required base-input" tabindex="5" fieldName="IdentificationNumber" type="text" required /></div>
                         </div>
                         <div class="down">
                             <div>Nơi cấp</div>
-                            <div class="space"><input id="txtIdentificationLocation" class="input-required" fieldName="IdentificationLocation" type="text" /></div>
+                            <div class="space"><input id="txtIdentificationLocation" class="input-required base-input" tabindex="7" fieldName="IdentificationLocation" type="text" /></div>
                         </div>
                         <div class="down">
                             <div>Email (<span class="red-color">*</span>)</div>
-                            <div class="space"><input id="txtEmail" class="input-required" fieldName="Email" type="email" placeholder="example@domain.com" required /></div>
+                            <div class="space"><input id="txtEmail" class="input-required base-input" tabindex="8" fieldName="Email" type="email" placeholder="example@domain.com" required /></div>
                         </div>
                         <div class="title-body-dialog" style="margin-top: 24px">B. THÔNG TIN CÔNG VIỆC:</div>
                         <hr class="hr-group-label" />
                         <div>
                             <div>Vị trí</div>
                             <div class="space">
-                                <select id="cbxPosition" fieldName="PositionName" fieldValue="PositionId" api="/api/v1/positions" style="width: 209px">
-                                    <!--<option value="27f91d6c-14b1-6c74-92ef-c9d5c2d91e91">Tất cả vị trí</option>
-                                    <option value="30007451-29ff-4fe4-3707-70859f4ff30d">Giám đốc</option>
-                                    <option value="34e2b4cc-3758-293d-7aa4-4b24de418577">Phó giám đốc</option>
-                                    <option value="3e39129b-279f-623f-88ea-778aee59fea3">Trưởng phòng</option>
-                                    <option value="6528b15d-6674-724f-79a4-4b24de418577">Nhân viên</option>-->
+                                <select id="cbxPosition" tabindex="10" fieldName="PositionName" fieldValue="PositionId" api="/api/v1/positions" style="width: 209px">
                                 </select>
                             </div>
                         </div>
                         <div class="down">
                             <div>Mã số thuế cá nhân</div>
-                            <div class="space"><input id="txtPersonalTaxCode" class="input-required" fieldName="PersonalTaxCode" type="text" style="width: 175px" /></div>
+                            <div class="space"><input id="txtPersonalTaxCode" class="input-required base-input" tabindex="12" fieldName="PersonalTaxCode" type="text" /></div>
                         </div>
                         <div class="down">
                             <div>Ngày gia nhập</div>
-                            <div class="space"><input id="dtJoiningDate" fieldName="JoiningDate" type="date" style="width: 175px; height: 17px;" /></div>
+                            <div class="space"><input id="dtJoiningDate" class="base-input" tabindex="14" fieldName="JoiningDate" type="date" /></div>
                         </div>
                     </div>
                     <div class="head-body-right">
                         <div>
                             <div>Họ và tên (<span class="red-color">*</span>)</div>
-                            <div class="space"><input id="txtFullName" class="input-required" fieldName="FullName" type="text" style="width: 175px;" required /></div>
+                            <div class="space"><input id="txtFullName" class="input-required base-input" tabindex="2" fieldName="FullName" type="text" required /></div>
                         </div>
                         <div class="down">
                             <div>Giới tính</div>
                             <div class="space">
-                                <select id="cbxGender" fieldValue="Gender" style="width: 209px">
+                                <select id="cbxGender" fieldValue="Gender" tabindex="4" style="width: 209px">
                                     <option value="1">Nam</option>
                                     <option value="0">Nữ</option>
                                     <option value="2">Khác</option>
@@ -233,32 +208,27 @@
                         </div>
                         <div class="down">
                             <div>Ngày cấp</div>
-                            <div class="space"><input id="dtIdentificationDate" fieldName="IdentificationDate" type="date" style="width: 175px; height: 17px;" /></div>
+                            <div class="space"><input id="dtIdentificationDate" class="base-input" tabindex="6" fieldName="IdentificationDate" type="date" /></div>
                         </div>
-                        <div style="margin-top:88px">
+                        <div style="margin-top:91px">
                             <div>Số điện thoại (<span class="red-color">*</span>)</div>
-                            <div class="space"><input id="txtPhoneNumber" fieldName="PhoneNumber" required /></div>
+                            <div class="space"><input id="txtPhoneNumber" class="base-input" tabindex="9" fieldName="PhoneNumber" required /></div>
                         </div>
                         <div style="margin-top: 59px">
                             <div>Phòng ban</div>
                             <div class="space">
-                                <select id="cbxDepartment" fieldName="DepartmentName" fieldValue="DepartmentId" api="/api/v1/departments" style="width: 209px">
-                                    <!--<option value="35e773ea-5d44-2dda-26a8-6d513e380bde">Tất cả phòng ban</option>
-                                    <option value="3f8e6896-4c7d-15f5-a018-75d8bd200d7c">Văn phòng tổng công ty</option>
-                                    <option value="45ac3d26-18f2-18a9-3031-644313fbb055">Phòng đào tạo công nghệ</option>
-                                    <option value="78aafe4a-67a7-2076-3bf3-eb0223d0a4f7">Phòng nhân sự</option>
-                                    <option value="7c4f14d8-66fb-14ae-198f-6354f958f4c0">Phòng hành chính</option>-->
+                                <select id="cbxDepartment" tabindex="11" fieldName="DepartmentName" fieldValue="DepartmentId" api="/api/v1/departments" style="width: 209px">
                                 </select>
                             </div>
                         </div>
                         <div class="down">
                             <div>Mức lương cơ bản</div>
-                            <div class="space"><input id="txtBaseSalary" fieldName="BaseSalary" type="text" style="text-align:right; padding-right: 45px; width: 146px" /><span class="currency-for-input">(VNĐ)</span></div>
+                            <div class="space"><input id="txtBaseSalary" tabindex="13" oninput="formatMoney(this);" fieldName="BaseSalary" type="text" style="text-align:right; padding-right: 45px; width: 146px; height: 17px;" /><span class="currency-for-input">(VNĐ)</span></div>
                         </div>
                         <div class="down">
                             <div>Tình trạng công việc</div>
                             <div class="space">
-                                <select id="cbxWorkStatus" fieldValue="WorkStatus" style="width: 209px">
+                                <select id="cbxWorkStatus" tabindex="15" fieldValue="WorkStatus" style="width: 209px">
                                     <option value="1">Đang làm việc</option>
                                     <option value="0">Đã nghỉ việc</option>
                                     <option value="2">Đang thử việc</option>
@@ -268,9 +238,9 @@
                     </div>
                 </div>
                 <div class="dialog-footer">
-                    <button id="button-save" class="m-btn"><i class="far fa-save"></i><span class="btn-text">Lưu</span></button>
-                    <button id="button-cancel" class="m-btn m-btn-cancel">Hủy</button>
-                    <button id="button-delete" class="m-btn m-btn-cancel">Xóa</button>
+                    <button id="button-save" class="m-btn" tabindex="16"><i class="far fa-save"></i><span class="btn-text">Lưu</span></button>
+                    <button id="button-cancel" class="m-btn m-btn-cancel" tabindex="17">Hủy</button>
+                    <button id="button-delete" class="m-btn m-btn-cancel" tabindex="18">Xóa</button>
                 </div>
             </div>
         </div>
