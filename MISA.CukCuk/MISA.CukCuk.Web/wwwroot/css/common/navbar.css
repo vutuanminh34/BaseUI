@@ -22,8 +22,8 @@
     }
         /*Logo page*/
         .navbar .logo-box .toogle-icon {
-            width: 24px;
-            height: 24px;
+            width: 30px;
+            height: 30px;
             background-image: url('/content/img/toggle.png');
             background-size: contain;
             margin-left: 6px;
@@ -32,7 +32,7 @@
 
         .navbar .logo-box .cukcuk-logo {
             width: 112px;
-            height: 24px;
+            height: 30px;
             background-image: url('/content/img/cukcuk-logo.png');
             background-size: contain;
             margin-left: 10px;

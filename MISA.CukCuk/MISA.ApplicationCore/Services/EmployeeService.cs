@@ -26,6 +26,11 @@ namespace MISA.ApplicationCore.Services
         {
             return _employeeRepository.FilterEmployee(inputValue, departmentId, positionId);
         }
+
+        public double GetMaxEmployeeCode()
+        {
+            return _employeeRepository.GetMaxEmployeeCode();
+        }
         #endregion
     }
 }

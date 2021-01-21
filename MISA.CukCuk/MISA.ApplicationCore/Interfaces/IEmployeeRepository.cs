@@ -20,5 +20,12 @@ namespace MISA.ApplicationCore.Interfaces
         /// <returns>List employee</returns>
         /// createdBy: vtminh(18/1/2021)
         List<Employee> FilterEmployee(string inputValue, Guid? departmentId, Guid? positionId);
+
+        /// <summary>
+        /// Get max number only in employee code
+        /// </summary>
+        /// <returns>Only number in employee code</returns>
+        /// createdBy: vtminh (21/1/2021)
+        double GetMaxEmployeeCode();
     }
 }

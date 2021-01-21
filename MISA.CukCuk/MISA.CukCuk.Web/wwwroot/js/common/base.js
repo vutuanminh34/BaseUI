@@ -8,7 +8,6 @@
         this.setSubApi();
         this.loadData();
         this.loadCombobox();
-        this.loadFilter();
         this.initEvents();
     }
 
@@ -73,23 +72,6 @@
                     var propertyName = $(this).attr('fieldName');
                     var value = res[propertyName];
 
-                   /* var select = $(this).attr('id');
-                    switch (select) {
-                        case 'cbxCustomerGroup':
-                        case 'cbxPosition':
-                        case 'cbxDepartment':
-                        case 'cbxGender':
-                        case 'cbxWorkStatus':
-                            var propValueName = $(this).attr('fieldValue');
-                            value = res[propValueName];
-                            $(this).val(value);
-                            break;
-                        default:
-                            $(this).val(value);
-                            break;
-                    }*/
-
-
                     //for customer group combobox
                     if ($(this).attr('id') == 'cbxPosition') {
                         var propValueName = $(this).attr('fieldValue');
@@ -119,6 +101,9 @@
                         var propValueName = $(this).attr('fieldValue');
                         value = res[propValueName];
                         $(this).val(value);
+                    }
+                    else if ($(this).attr('id') == 'txtBaseSalary') {
+                        $(this).val(value).simpleMoneyFormat();
                     }
                     //for input date type
                     else if ($(this).attr('type') == 'date') {
@@ -283,6 +268,7 @@
             })
         })
     }
+
      /* Function excute event when click on "Thêm mới khách hàng" button 
      * createdBy: minhvt (4/1/2021)
      * */
@@ -293,12 +279,23 @@
             //show dialog
             $('.dialog-detail').addClass('show-dialog');
             $('.dialog-detail').removeClass('hide-dialog');
+            //Reset and format value for input
             $('input[type !="radio"]').val(null);
             $('input[type="radio"]').prop('checked', false);
             $(`#txt${me.objectName}Code`).focus();
             var selects = $('select[fieldName]');
             selects.empty();
             me.loadCombobox();
+            //Getting and auto binding objectCode
+            $.ajax({
+                url: me.host + me.apiRouter + `/maxcode`,
+                method: "GET",
+            }).done(function (res) {
+                var newObjectCode = parseInt(res) + 1;
+                $('#txtEmployeeCode').val(`NV${newObjectCode}`);
+            }).fail(function (res) {
+
+            })
         } catch (e) {
             console.log(e);
         }

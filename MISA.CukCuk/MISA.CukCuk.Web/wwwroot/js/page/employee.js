@@ -19,7 +19,7 @@ class EmployeeJS extends BaseJS {
             me.setSubApi();
             me.loadData();
         })
-
+        $("#txtBaseSalary").simpleMoneyFormat();
     }
 
     setSubApi() {
@@ -38,9 +38,7 @@ class EmployeeJS extends BaseJS {
 
     }
 
-
     setApiRouter() {
         this.apiRouter = "/api/v1/employees";
     }
-
 }

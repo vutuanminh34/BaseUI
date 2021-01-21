@@ -24,5 +24,12 @@ namespace MISA.CukCuk.Web.Controllers
         {
             return Ok(_employeeService.FilterEmployee(inputValue, departmentId, positionId));
         }
+
+        [HttpGet("MaxCode")]
+        public IActionResult GetMaxEmployeeCode()
+        {
+            var maxId = Convert.ToInt64(_employeeService.GetMaxEmployeeCode());
+            return Ok(maxId);
+        }
     }
 }

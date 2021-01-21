@@ -31,5 +31,11 @@ namespace MISA.Infrastructure
             var employees = _dbConnection.Query<Employee>("Proc_FilterEmployee", parameters, commandType: CommandType.StoredProcedure).ToList();
             return employees;
         }
+
+        public double GetMaxEmployeeCode()
+        {
+            var max = _dbConnection.ExecuteScalar<double>("Proc_GetEmployeeCode", commandType: CommandType.StoredProcedure);
+            return max;
+        }
     }
 }

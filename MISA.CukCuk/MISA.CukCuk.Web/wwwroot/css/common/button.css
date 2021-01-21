@@ -88,3 +88,12 @@
     .m-btn-cancel:hover, .m-btn-cancel:focus {
         background-color: #eb3434;
     }
+
+.button-default:focus,
+.button-text:focus {
+    outline: none;
+}
+
+.button-default:focus  {
+    box-shadow: 0 0 2px 2px #000000;
+} 
