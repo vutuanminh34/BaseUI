@@ -16,23 +16,24 @@ class EmployeeJS extends BaseJS {
         var me = this;
         super.initEvents();
         $('#txtSearchEmployee, .cbxFilter1, .cbxFilter2').on('input', function (event) {
-            me.loadFilter();
+            me.setSubApi();
+            me.loadData();
         })
 
     }
 
-    loadFilter() {
-        var me = this;
-        super.loadFilter();
+    setSubApi() {
         var inputValue = $('#txtSearchEmployee').val();
+
         var departmentId = $('select.cbxFilter1 option:selected').val();
         if (departmentId == undefined)
             departmentId = '';
+
         var positionId = $('select.cbxFilter2 option:selected').val();
         if (positionId == undefined)
             positionId = '';
 
-        me.subApi = "/filter?inputValue=" + inputValue + "&departmentId=" + departmentId + "&positionId=" + positionId + "";
+        this.subApi = "/filter?inputValue=" + inputValue + "&departmentId=" + departmentId + "&positionId=" + positionId + "";
 
 
     }

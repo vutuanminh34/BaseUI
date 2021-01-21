@@ -5,6 +5,7 @@
         this.subApi = "";
         this.objectName = null;
         this.setApiRouter();
+        this.setSubApi();
         this.loadData();
         this.loadCombobox();
         this.loadFilter();
@@ -16,6 +17,12 @@
 
     }
 
+    //set sub api
+    setSubApi() {
+
+    }
+
+    //base event
     initEvents() {
         var me = this;
 
@@ -25,8 +32,8 @@
         //Event reload data when click button load
         $('#button-refresh').click(function () {
             alert('Refresh data complete!');
-            this.loadData();
             me.subApi = "";
+            this.loadData();
             $('#txtSearchEmployee').val('');
         }.bind(this));
 
@@ -52,14 +59,14 @@
             //Get primary key from table
             var recordId = $(this).data('recordId');
             me.recordId = recordId;
+            //Get object id from table
+            var objectId = $(this).data('objectId');
+            me.objectId = objectId;
             //Call service to get detail infor by Id
             $.ajax({
                 url: me.host + me.apiRouter + `/${recordId}`,
                 method: "GET"
             }).done(function (res) {
-                //binding date to dialog
-                console.log(res);
-
                 //data collection has been entered -> build to object
                 var inputs = $('input[fieldName], select[id]');
                 $.each(inputs, function (index, input) {
@@ -188,17 +195,21 @@
             var columns = $('table thead th');
             //get data
             $.ajax({
-                url: me.host + me.apiRouter,
+                url: me.host + me.apiRouter + me.subApi,
                 method: "GET",
             }).done(function (res) {
                 var data = res;
                 $.each(data, function (index, obj) {
                     var check = me.objectName;
                     var tr = $(`<tr></tr>`);
-                    if (check == "Customer")
+                    if (check == "Customer") {
                         $(tr).data('recordId', obj.CustomerId);
-                    else
+                        $(tr).data('objectId', obj.CustomerCode);
+                    }
+                    else {
                         $(tr).data('recordId', obj.EmployeeId);
+                        $(tr).data('objectId', obj.EmployeeCode);
+                    }
                     //get value use for mapping with the corresponding columns
                     $.each(columns, function (index, th) {
                         var td = $(`<td></td>`);
@@ -229,8 +240,9 @@
                         $(tr).append(td);
                     })
                     $('table tbody').append(tr);
-                    $('.loading').hide();
+                    
                 })
+                $('.loading').hide();
             }).fail(function (res) {
                 $('.loading').hide();
             })
@@ -238,16 +250,15 @@
             //log error
             console.log(e);
         }
-
-
-
     }
 
     /**
      * load combobox
+     * createdBy: minhvt (4/1/2021)
      * */
     loadCombobox() {
         var me = this;
+        $('.loading').show();
         //load data for combobox
         var selects = $('select[fieldName]');
         $.each(selects, function (index, select) {
@@ -255,19 +266,15 @@
             var api = $(select).attr('api');
             var fieldName = $(select).attr('fieldName');
             var fieldValue = $(select).attr('fieldValue');
-            $('.loading').show();
             $.ajax({
                 url: me.host + api,
                 method: "GET",
                 async: true
             }).done(function (res) {
                 if (res) {
-                    console.log(res);
                     $.each(res, function (index, obj) {
                         var option = $(`<option value="${obj[fieldValue]}">${obj[fieldName]}</option>`);
-                        console.log(select);
                         $(select).append(option);
-                        console.log(option);
                     })
                 }
                 $('.loading').hide();
@@ -276,65 +283,6 @@
             })
         })
     }
-
-    /**
-     * Filter data
-     * createdBy: vtminh (19/1/1021)
-     * */
-    loadFilter() {
-        var me = this;
-
-        $('table tbody').empty();
-        //get value for column
-        var columns = $('table thead th');
-        //get data
-        $.ajax({
-            url: me.host + me.apiRouter + me.subApi,
-            method: "GET",
-        }).done(function (res) {
-            var data = res;
-            $.each(data, function (index, obj) {
-                var check = me.objectName;
-                var tr = $(`<tr></tr>`);
-                if (check == "Customer")
-                    $(tr).data('recordId', obj.CustomerId);
-                else
-                    $(tr).data('recordId', obj.EmployeeId);
-                //get value use for mapping with the corresponding columns
-                $.each(columns, function (index, th) {
-                    var td = $(`<td></td>`);
-
-                    var fieldName = $(th).attr('fieldName');
-                    var value = obj[fieldName];
-                    var formatType = $(th).attr('formatType');
-                    switch (formatType) {
-                        case "ddmmyyyy":
-                            td.addClass("text-align-center");
-                            $(th).addClass("text-align-center");
-                            value = formatDate(value);
-                            break;
-                        case "Money":
-                            td.addClass("text-align-right");
-                            $(th).addClass("text-align-right");
-                            value = formatMoney(value);
-                            break;
-                        case "Gender":
-                            value = formatGender(value);
-                            break;
-                        case "WorkStatus":
-                            value = formatWorkStatus(value);
-                        default:
-                            break;
-                    }
-                    td.append(value);
-                    $(tr).append(td);
-                })
-                $('table tbody').append(tr);
-            })
-        }).fail(function (res) {
-        })
-    }
-
      /* Function excute event when click on "Thêm mới khách hàng" button 
      * createdBy: minhvt (4/1/2021)
      * */
@@ -347,21 +295,10 @@
             $('.dialog-detail').removeClass('hide-dialog');
             $('input[type !="radio"]').val(null);
             $('input[type="radio"]').prop('checked', false);
+            $(`#txt${me.objectName}Code`).focus();
             var selects = $('select[fieldName]');
             selects.empty();
             me.loadCombobox();
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    /**
-     * Function used to process event double click on row
-     * */
-    doubleClick() {
-        try {
-            var me = this;
-
         } catch (e) {
             console.log(e);
         }
@@ -438,7 +375,13 @@
     btnDeleteOnClick() {
         var me = this;
         try {
-            var result = confirm("Bạn có chắc chắn muốn xóa?");
+            var name = '';
+            var check = me.objectName;
+            if (check == "Customer")
+                name = "khách hàng";
+            else
+                name = "nhân viên";
+            var result = confirm(`Bạn có chắc chắn muốn xóa ${name} ${me.objectId} không?`);
             if (result) {
                 $.ajax({
                     url: me.host + me.apiRouter + `/${me.recordId}`,

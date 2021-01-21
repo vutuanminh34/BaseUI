@@ -26,8 +26,8 @@ namespace MISA.Infrastructure
             parameters.Add("@EmployeeCode", inputs);
             parameters.Add("@FullName", inputs);
             parameters.Add("@PhoneNumber", inputs);
-            parameters.Add("@DepartmentId", departmentId.ToString());
-            parameters.Add("@PositionId", positionId.ToString());
+            parameters.Add("@DepartmentId", departmentId, DbType.String);
+            parameters.Add("@PositionId", positionId, DbType.String);
             var employees = _dbConnection.Query<Employee>("Proc_FilterEmployee", parameters, commandType: CommandType.StoredProcedure).ToList();
             return employees;
         }
