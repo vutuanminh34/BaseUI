@@ -77,8 +77,16 @@ namespace MISA.ApplicationCore.Services
         /// <returns></returns>
         private bool Validate(TEntity entity)
         {
-            var isValidate = true;
+            try
+            {
 
+            }
+            catch (Exception)
+            {
+
+            }
+            var isValidate = true;
+            var listMessenger = new List<string>();
             //Get all properties
             var properties = entity.GetType().GetProperties();
             foreach (var property in properties)
@@ -95,10 +103,10 @@ namespace MISA.ApplicationCore.Services
                 if (property.IsDefined(typeof(Required), false))
                 {
                     //Check required
-                    if (propertyValue == null)
+                    if (propertyValue == null || propertyValue.ToString().Trim() == "")
                     {
                         isValidate = false;
-                        _serviceResult.Data = string.Format(Properties.Resources.Msg_Required, displayName);
+                        listMessenger.Add(string.Format(Properties.Resources.Msg_Required, displayName));
                         _serviceResult.MISACode = Enums.MISACode.NotValid;
                         _serviceResult.Messenger = Properties.Resources.Msg_IsNotValid;
                     }
@@ -111,7 +119,7 @@ namespace MISA.ApplicationCore.Services
                     if (entityDuplicate != null)
                     {
                         isValidate = false;
-                        _serviceResult.Data = string.Format(Properties.Resources.Msg_Duplicate, displayName);
+                         listMessenger.Add(string.Format(Properties.Resources.Msg_Duplicate, displayName));
                         _serviceResult.MISACode = Enums.MISACode.NotValid;
                         _serviceResult.Messenger = Properties.Resources.Msg_IsNotValid;
                     }
@@ -125,12 +133,13 @@ namespace MISA.ApplicationCore.Services
                     if(propertyValue.ToString().Trim().Length > length)
                     {
                         isValidate = false;
-                        _serviceResult.Data = msg;
+                        listMessenger.Add(msg);
                         _serviceResult.MISACode = Enums.MISACode.NotValid;
                         _serviceResult.Messenger = Properties.Resources.Msg_IsNotValid;
                     }
                 }
             }
+            _serviceResult.Data = listMessenger;
             if (isValidate == true)
             {
                 isValidate = ValidateCustom(entity);

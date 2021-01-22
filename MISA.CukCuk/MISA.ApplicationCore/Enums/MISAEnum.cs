@@ -57,30 +57,4 @@ namespace MISA.ApplicationCore.Enums
         /// </summary>
         Other,
     }
-
-    /// <summary>
-    /// Value of WordStatus
-    /// </summary>
-    public enum WorkStatus
-    {
-        /// <summary>
-        /// Đã nghỉ việc
-        /// </summary>
-        Resign,
-
-        /// <summary>
-        /// Đang làm việc
-        /// </summary>
-        Working,
-
-        /// <summary>
-        /// Đang thử việc
-        /// </summary>
-        TrailWork,
-
-        /// <summary>
-        /// Đã nghỉ hưu
-        /// </summary>
-        Retired
-    }
 }

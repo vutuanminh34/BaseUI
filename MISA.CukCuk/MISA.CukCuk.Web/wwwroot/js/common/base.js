@@ -285,6 +285,7 @@
             $('input[type="radio"]').prop('checked', false);
             $(`#txt${me.objectName}Code`).focus();
             $("option:selected").prop("selected", false);
+            $('input').removeClass('border-red');
             //Getting and auto binding objectCode
             $.ajax({
                 url: me.host + me.apiRouter + `/maxcode`,
@@ -307,10 +308,15 @@
     btnSaveOnClick() {
         var me = this;
         //validate data
+        var inputValidates = $('.input-required, input[type="email"]');
+        $.each(inputValidates, function (index, item) {
+            $(item).trigger('blur');
+        })
+
         var inputNotValids = $('input[validate="false"]');
         if (inputNotValids && inputNotValids.length > 0) {
             alert('Dữ liệu không hợp lệ vui lòng kiểm tra lại!');
-            inputNotValids[0].focus();
+            inputNotValids[2].focus();
             return;
         }
         //data collection has been entered -> build to object
@@ -318,7 +324,7 @@
         var entity = {};
         $.each(inputs, function (index, input) {
             var propertyName = $(this).attr('fieldName');
-            var value = $(this).val();
+            var value = $(this).val().trim();
 
             //Check value of radio, Give only checked
             if ($(this).attr('type') == "radio") {
@@ -387,7 +393,7 @@
                     url: me.host + me.apiRouter + `/${me.recordId}`,
                     method: "DELETE"
                 }).done(function (res) {
-                    alert('Xóa thành công!');
+                    Msg.success('Xóa thành công!', 4000);
                     $('.dialog-detail').removeClass('show-dialog');
                     $('.dialog-detail').addClass('hide-dialog');
                     me.loadData();

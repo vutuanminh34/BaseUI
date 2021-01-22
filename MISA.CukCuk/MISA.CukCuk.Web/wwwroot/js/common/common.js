@@ -99,3 +99,28 @@ var delayFunction = (function () {
         }
     }
 });
+
+//All this function used to add dot after 3 number
+//copiedBy:
+
+function reverseNumber(input) {
+    return [].map.call(input, function (x) {
+        return x;
+    }).reverse().join('');
+}
+
+function plainNumber(number) {
+    return number.split('.').join('');
+}
+
+function splitInDots(input) {
+
+    var value = input.value,
+        plain = plainNumber(value),
+        reversed = reverseNumber(plain),
+        reversedWithDots = reversed.match(/.{1,3}/g).join('.'),
+        normal = reverseNumber(reversedWithDots);
+
+    console.log(plain, reversed, reversedWithDots, normal);
+    input.value = normal;
+}

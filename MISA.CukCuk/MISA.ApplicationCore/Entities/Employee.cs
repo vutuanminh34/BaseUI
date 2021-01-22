@@ -61,6 +61,8 @@ namespace MISA.ApplicationCore.Entities
         /// Địa chỉ email
         /// </summary>
         [Required]
+        [CheckDuplicate]
+        [DisplayName("địa chỉ email")]
         public string Email { get; set; }
 
         /// <summary>

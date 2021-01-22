@@ -18,6 +18,11 @@ class EmployeeJS extends BaseJS {
         $('#txtSearchEmployee, .cbxFilter1, .cbxFilter2').on('input', function (event) {
             me.setSubApi();
             me.loadData();
+        });
+        $('#txtBaseSalary').on('input keypress keyup blur', function (event) {
+            if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                event.preventDefault();
+            }
         })
     }
 
