@@ -82,26 +82,8 @@ function formatWorkStatus(workStatus) {
         return "";
 }
 
-/**
- * function used to delay load
- * createdBy: vtminh(19/1/2021)
- * */
-var delayFunction = (function () {
-    var ticker = null;
-    return function (callback, ms, jsObject) {
-        if (ticker !== null) {
-            clearTimeout(ticker)
-        }
-        if (jsObject == null) {
-            ticker = setTimeout(callback, ms)
-        } else {
-            ticker = setTimeout(callback.bind(jsObject), ms)
-        }
-    }
-});
-
 //All this function used to add dot after 3 number
-//copiedBy:
+//createdBy: vtminh (22/01/2021) 
 
 function reverseNumber(input) {
     return [].map.call(input, function (x) {

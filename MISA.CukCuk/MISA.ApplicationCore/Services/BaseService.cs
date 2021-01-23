@@ -77,14 +77,6 @@ namespace MISA.ApplicationCore.Services
         /// <returns></returns>
         private bool Validate(TEntity entity)
         {
-            try
-            {
-
-            }
-            catch (Exception)
-            {
-
-            }
             var isValidate = true;
             var listMessenger = new List<string>();
             //Get all properties

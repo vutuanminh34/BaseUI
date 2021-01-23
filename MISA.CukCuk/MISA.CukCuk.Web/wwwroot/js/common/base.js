@@ -30,10 +30,14 @@
 
         //Event reload data when click button load
         $('#button-refresh').click(function () {
-            alert('Refresh data complete!');
+            $.jnoty("Cập nhật dữ liệu thành công!", {
+                header: 'Thành Công',
+                theme: 'jnoty-success',
+                icon: 'fa fa-check-circle fa-2x'
+            });
             me.subApi = "";
             this.loadData();
-            $('#txtSearchEmployee').val('');
+            $('#txtSearchEmployee, .cbxFilter1 , .cbxFilter2').val('');
         }.bind(this));
 
         //Hide form dialog when click button "Huy" and "X"
@@ -226,7 +230,7 @@
                         $(tr).append(td);
                     })
                     $('table tbody').append(tr);
-                    
+
                 })
                 $('.loading').hide();
             }).fail(function (res) {
@@ -270,9 +274,9 @@
         })
     }
 
-     /* Function excute event when click on "Thêm mới khách hàng" button 
-     * createdBy: minhvt (4/1/2021)
-     * */
+    /* Function excute event when click on "Thêm mới khách hàng" button 
+    * createdBy: minhvt (4/1/2021)
+    * */
     btnAddOnClick() {
         try {
             var me = this;
@@ -315,7 +319,11 @@
 
         var inputNotValids = $('input[validate="false"]');
         if (inputNotValids && inputNotValids.length > 0) {
-            alert('Dữ liệu không hợp lệ vui lòng kiểm tra lại!');
+            $.jnoty("Dữ liệu không hợp lệ vui lòng kiểm tra lại!", {
+                header: 'Cảnh báo',
+                theme: 'jnoty-danger',
+                icon: 'fa fa-info-circle fa-2x'
+            });
             inputNotValids[2].focus();
             return;
         }
@@ -324,7 +332,7 @@
         var entity = {};
         $.each(inputs, function (index, input) {
             var propertyName = $(this).attr('fieldName');
-            var value = $(this).val().trim();
+            var value = $(this).val();
 
             //Check value of radio, Give only checked
             if ($(this).attr('type') == "radio") {
@@ -359,18 +367,31 @@
         }).done(function (res) {
             //After save success -> Give a message, hide form dialog, reload data
             console.log(entity);
+            var text = '';
             if (me.FormMode == 'Add') {
-                alert('Thêm thành công!');
+                text = 'Thêm thành công!';
             } if (me.FormMode == 'Edit') {
-                alert('Cập nhật thành công!');
+                text = 'Cập nhật thành công!';
             }
+
+            $.jnoty(text, {
+                header: 'Thành Công',
+                theme: 'jnoty-success',
+                icon: 'fa fa-check-circle fa-2x'
+            });
+
             $('.dialog-detail').removeClass('show-dialog');
             $('.dialog-detail').addClass('hide-dialog');
             me.loadData();
 
         }).fail(function (res) {
             var msg = JSON.parse(res.responseText);
-            alert(msg.Data);
+
+            $.jnoty(`${msg.Data}`, {
+                header: 'Cảnh báo',
+                theme: 'jnoty-danger',
+                icon: 'fa fa-info-circle fa-2x'
+            });
         })
     }
 
@@ -381,29 +402,43 @@
     btnDeleteOnClick() {
         var me = this;
         try {
+            $('.dialog-detail').removeClass('show-dialog');
+            $('.dialog-detail').addClass('hide-dialog');
             var name = '';
             var check = me.objectName;
             if (check == "Customer")
                 name = "khách hàng";
             else
                 name = "nhân viên";
-            var result = confirm(`Bạn có chắc chắn muốn xóa ${name} ${me.objectId} không?`);
-            if (result) {
-                $.ajax({
-                    url: me.host + me.apiRouter + `/${me.recordId}`,
-                    method: "DELETE"
-                }).done(function (res) {
-                    Msg.success('Xóa thành công!', 4000);
-                    $('.dialog-detail').removeClass('show-dialog');
-                    $('.dialog-detail').addClass('hide-dialog');
-                    me.loadData();
 
-                }).fail(function (res) {
+            lnv.confirm({
+                title: 'Thông báo xác nhận',
+                content: `Bạn có chắc chắn muốn xóa ${name} ${me.objectId} không?`,
+                confirmBtnText: 'Có',
+                confirmHandler: function () {
+                    $.ajax({
+                        url: me.host + me.apiRouter + `/${me.recordId}`,
+                        method: "DELETE"
+                    }).done(function (res) {
+                        me.loadData();
+                    }).fail(function (res) {
 
-                })
-            }
+                    })
+
+                    lnv.alert({
+                        title: 'Thông báo xác nhận',
+                        content: 'Xóa thành công!',
+                        alertBtnText: 'xác nhận'
+                    })
+                },
+                cancelBtnText: 'Không',
+                cancelHandler: function () {
+                    $('.dialog-detail').addClass('show-dialog');
+                    $('.dialog-detail').removeClass('hide-dialog');
+                }
+            })
         } catch (e) {
-
+            console.log(e);
         }
     }
 }

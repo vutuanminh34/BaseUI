@@ -87,11 +87,25 @@ namespace MISA.Infrastructure
 
         public int Update(TEntity entity)
         {
-            //Mapping type of data
-            var parameters = MappingDbType(entity);
-            //Excute commandText
-            var rowAffects = _dbConnection.Execute($"Proc_Update{_tableName}", parameters, commandType: CommandType.StoredProcedure);
-            //Return number of record have been inserted
+            var rowAffects = 0;
+            _dbConnection.Open();
+            using (var transaction = _dbConnection.BeginTransaction())
+            {
+                try
+                {
+                    //Mapping type of data
+                    var parameters = MappingDbType(entity);
+                    //Excute commandText
+                    rowAffects = _dbConnection.Execute($"Proc_Update{_tableName}", parameters, commandType: CommandType.StoredProcedure);
+                    //Return number of record have been inserted
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
+            
             return rowAffects;
         }
 

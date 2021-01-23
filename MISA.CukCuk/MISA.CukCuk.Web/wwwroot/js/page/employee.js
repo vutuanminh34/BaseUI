@@ -19,7 +19,7 @@ class EmployeeJS extends BaseJS {
             me.setSubApi();
             me.loadData();
         });
-        $('#txtBaseSalary').on('input keypress keyup blur', function (event) {
+        $('#txtBaseSalary, #txtIdentificationNumber, #txtPersonalTaxCode').on('input keypress keyup blur', function (event) {
             if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
                 event.preventDefault();
             }
