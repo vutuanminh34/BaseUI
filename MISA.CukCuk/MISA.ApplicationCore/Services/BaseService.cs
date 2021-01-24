@@ -122,12 +122,15 @@ namespace MISA.ApplicationCore.Services
                     var attributeMaxLength = property.GetCustomAttributes(typeof(MaxLength), true)[0];
                     var length = (attributeMaxLength as MaxLength).Value;
                     var msg = (attributeMaxLength as MaxLength).ErrorMsg;
-                    if(propertyValue.ToString().Trim().Length > length)
+                    if (propertyValue != null)
                     {
-                        isValidate = false;
-                        listMessenger.Add(msg);
-                        _serviceResult.MISACode = Enums.MISACode.NotValid;
-                        _serviceResult.Messenger = Properties.Resources.Msg_IsNotValid;
+                        if (propertyValue.ToString().Trim().Length > length)
+                        {
+                            isValidate = false;
+                            listMessenger.Add(msg);
+                            _serviceResult.MISACode = Enums.MISACode.NotValid;
+                            _serviceResult.Messenger = Properties.Resources.Msg_IsNotValid;
+                        }
                     }
                 }
             }
