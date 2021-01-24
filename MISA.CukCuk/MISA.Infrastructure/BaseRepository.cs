@@ -110,11 +110,12 @@ namespace MISA.Infrastructure
         }
 
         /// <summary>
-        /// 
+        /// Function userd to mapping data
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
+        /// createdBy: vtminh (01/2021)
         private DynamicParameters MappingDbType(TEntity entity)
         {
             var properties = entity.GetType().GetProperties();
@@ -141,6 +142,13 @@ namespace MISA.Infrastructure
             return parameters;
         }
 
+        /// <summary>
+        /// Get entity by property
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="property"></param>
+        /// <returns></returns>
+        /// createdBy: vtminh (01/2021)
         public TEntity GetEntityByProperty(TEntity entity, PropertyInfo property)
         {
             var propertyName = property.Name;

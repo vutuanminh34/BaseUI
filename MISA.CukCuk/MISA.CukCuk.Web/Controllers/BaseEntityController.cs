@@ -20,6 +20,7 @@ namespace MISA.CukCuk.Web.Controllers
             _baseService = baseService;
         }
         
+        //Get all entity
         [HttpGet]
         public IActionResult Get()
         {
@@ -27,7 +28,7 @@ namespace MISA.CukCuk.Web.Controllers
             return Ok(entities);
         }
 
-        
+        //Get entity by id
         [HttpGet("{id}")]
         public IActionResult Get(Guid id)
         {
@@ -35,7 +36,7 @@ namespace MISA.CukCuk.Web.Controllers
             return Ok(entity);
         }
 
-        // POST api/<BaseEntityController>
+        // Insert entity
         [HttpPost]
         public IActionResult Post([FromBody] TEntity entity)
         {
@@ -47,7 +48,7 @@ namespace MISA.CukCuk.Web.Controllers
                 return Ok(serviceResult);
         }
 
-        // PUT api/<BaseEntityController>/5
+        // update entity by id
         [HttpPut("{id}")]
         public IActionResult Put(string id, [FromBody] TEntity entity)
         {
@@ -72,7 +73,7 @@ namespace MISA.CukCuk.Web.Controllers
                 return Ok(serviceResult);
         }
 
-        // DELETE api/<BaseEntityController>/5
+        // Delete entity by id
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
