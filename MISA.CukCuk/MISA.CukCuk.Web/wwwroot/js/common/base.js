@@ -281,7 +281,7 @@
         } catch (e) {
             console.log(e);
         }
-        
+
     }
 
     /* Function excute event when click on "Thêm mới khách hàng" button 
@@ -336,7 +336,10 @@
                     theme: 'jnoty-danger',
                     icon: 'fa fa-info-circle fa-2x'
                 });
-                inputNotValids[0].focus();
+                if ($('input[tabindex="1"]').val()) {
+                    $('input[tabindex="2"]').focus();
+                } else
+                    inputNotValids[0].focus();
                 return;
             }
             //data collection has been entered -> build to object
