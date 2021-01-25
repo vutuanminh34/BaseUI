@@ -58,6 +58,7 @@
 
         //Show detail infor when double click on object in table(dynamic event definitions)
         $('table tbody').on('dblclick', 'tr', function () {
+            $('#button-delete').show();
             try {
                 me.FormMode = 'Edit';
                 //Get primary key from table
@@ -298,6 +299,7 @@
             $('input[type="radio"]').prop('checked', false);
             $(`#txt${me.objectName}Code`).focus();
             $("option:selected").prop("selected", false);
+            $('#button-delete').hide();
             $('input').removeClass('border-red');
             //Getting and auto binding objectCode
             $.ajax({
