@@ -336,7 +336,7 @@
                     theme: 'jnoty-danger',
                     icon: 'fa fa-info-circle fa-2x'
                 });
-                $('input[tabindex="1"]').focus();
+                inputNotValids[0].focus();
                 return;
             }
             //data collection has been entered -> build to object
